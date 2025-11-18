@@ -13,8 +13,12 @@
     <!-- scroll animation css-->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
     <!-- style -->
-     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
 </head>
 
 <body>
@@ -28,7 +32,7 @@
             </div>
         </div>
     </section>
-       <section class="navbar-section" id="mainHeader">
+    <section class="navbar-section" id="mainHeader">
         <div class="container">
             <div class="navbar">
                 <h2><i class="fas fa-heartbeat"></i> Mathias Catholic Hospital</h2>
@@ -48,29 +52,60 @@
     </section>
 
 
-    <header class="hero" id="home">
+    <!-- <header class="hero" id="home">
         <h5 data-aos="fade-up">WELCOME TO </h5>
-		<h2 data-aos="fade-up">MATHIAS CATHOLIC HOSPITAL</h2>
+        <h2 data-aos="fade-up">MATHIAS CATHOLIC HOSPITAL</h2>
         &nbsp;&nbsp;&nbsp;
-									          	
- <h4 data-aos="fade-down-right" data-aos-anchor-placement="bottom-bottom">We provide excellent primary healthcare that exceeds the expectations of
-						our clients by a highly motivated, committed and healthy workforce through
-							efficient management and governance systems</h4>
+
+        <h4 data-aos="fade-down-right" data-aos-anchor-placement="bottom-bottom">We provide excellent primary healthcare
+            that exceeds the expectations of
+            our clients by a highly motivated, committed and healthy workforce through
+            efficient management and governance systems</h4>
         <br>&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        <button data-aos="fade-down"><a href="{% url 'go' %}">Read More</a></button>
+        <button data-aos="fade-down"><a href="{% url 'about' %}">Read More</a></button>
         <button data-aos="fade-down" class="outline-btn">Book Now</button>
-    </header>
- <section class="section services" id="service">
+    </header> -->
+   
+   <div class="swiper mySwiper mb-4">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide slide1">
+            <div class="overlay">
+                <h1>Welcome Dear Students</h1>
+                <p>Track your academic progress with ease.</p>
+                <a href=" " class="btn btn-primary">Let's Start</a>
+            </div>  
+        </div>     
+        <div class="swiper-slide slide2">
+            <div class="overlay">
+                <h1>Report any Issue</h1>
+                <p>Keep your records up to date.</p>
+                <a href=" " class="btn btn-warning">Let's Start</a>
+            </div> 
+        </div> 
+        <div class="swiper-slide slide3">
+            <div class="overlay">
+                <h1>View Assessment Results</h1>
+                <p>Stay informed about your academic performance.</p>
+                <a href="" class="btn btn-primary">Let's Start</a>
+            </div>
+        </div>
+    </div>
+    <!-- Pagination & Navigation -->
+    <div class="swiper-pagination"></div>
+</div>
+
+    <section class="section services" id="service">
         <h2 data-aos="fade-right">Our Services</h2>
-        <p class="sub-heading" data-aos="fade-right">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+        <p class="sub-heading" data-aos="fade-right">Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. </p>
         <div class="flex-row">
-            
+
             <div class="card" data-aos="fade-up"><i class="fas fa-stethoscope"></i>
                 <h4>Antenatal Care</h4>
                 <p>Regular health checkups by experts</p>
             </div>
             <div class="card" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-briefcase-medical"></i>
-                
+
                 <h4>Physiotherapy</h4>
                 <p>24/7 emergency support</p>
             </div>
@@ -89,9 +124,9 @@
                 <p>Regular health checkups by experts</p>
             </div>
             <div class="card" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-briefcase-medical"></i>
-                
+
                 <h4> ECG</h4>
-                 
+
                 <p>24/7 emergency support</p>
             </div>
             <div class="card" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-heartbeat"></i>
@@ -102,16 +137,22 @@
                 <h4> Ear, Nose and Throat (ENT)</h4>
                 <p>Advanced heart care unit</p>
             </div>
-    
-       
+
+
         </div>
-         <a href="#" class="read-more-btn">READ MORE</a>
-    </section> 
-<section class="section why-choose-us" id="about">
+        <a href="#" class="read-more-btn">READ MORE</a>
+    </section>
+    <section class="section why-choose-us" id="about">
         <h2 data-aos="fade-right">Why Choose Us ?</h2>
-    
+
         <p data-aos="fade-right">
-            Mathias Catholic Hospital was established in 1991 by the JMJ Sisters in a small structure through the instrumentality of the late Bishop of then Sunyani Diocese, Most Rev. James Kojo Owusu. Since then the JMJ Sisters have continued to manage the hospital. It is the only hospital in the Pru East District and serves as a major referral point for about 10 public and private health institutions within the surroundings districts The hospital has a bed capacity of 205 being handled by staff strength of 401 currently. The hospital is under the political administration of the Pru East District Assembly of the Bono East Region of Ghana
+            Mathias Catholic Hospital was established in 1991 by the JMJ Sisters in a small structure through the
+            instrumentality of the late Bishop of then Sunyani Diocese, Most Rev. James Kojo Owusu. Since then the JMJ
+            Sisters have continued to manage the hospital. It is the only hospital in the Pru East District and serves
+            as a major referral point for about 10 public and private health institutions within the surroundings
+            districts The hospital has a bed capacity of 205 being handled by staff strength of 401 currently. The
+            hospital is under the political administration of the Pru East District Assembly of the Bono East Region of
+            Ghana
         </p>
 
         <div class="content-wrapper">
@@ -123,8 +164,10 @@
                     </div>
                     <div class="feature-text">
                         <h3> OUR VISION</h3>
-                        <i class="fa-solid fa-quote-right"></i> 
-                        <p>To provide quality health care service in the most effective, efficient and innovative manner, specific to the needs of the communities we serve and at all times acknowledging the dignity of the Patients.</p>
+                        <i class="fa-solid fa-quote-right"></i>
+                        <p>To provide quality health care service in the most effective, efficient and innovative
+                            manner, specific to the needs of the communities we serve and at all times acknowledging the
+                            dignity of the Patients.</p>
                     </div>
                 </div>
                 <div class="feature" data-aos="fade-right">
@@ -133,9 +176,11 @@
                     </div>
                     <div class="feature-text">
                         <h3> OUR MISSION</h3>
-                        <i class="fa-solid fa-quote-right"></i> 
+                        <i class="fa-solid fa-quote-right"></i>
                         <p>
-                        To continue Christ's healing ministry in bringing healing to the greatest number of people through healers with good ethical and moral standards who are motivated and united in their common respect for fundamental human values
+                            To continue Christ's healing ministry in bringing healing to the greatest number of people
+                            through healers with good ethical and moral standards who are motivated and united in their
+                            common respect for fundamental human values
                         </p>
                     </div>
                 </div>
@@ -143,50 +188,53 @@
 
             <!-- Center Image -->
             <div class="center-image" data-aos="fade-down">
-                <img src="images/why-choose.png" alt="Doctor" />
+                <img src="{% static 'images/why-choose.png'%}" alt="Doctor" />
             </div>
 
             <!-- Right Column -->
             <div class="features" data-aos="fade-left">
                 <div class="feature">
                     <div class="feature-icon">
-                        <img src="images/chooseIcon-2.png">
+                        <img src="{% static 'images/chooseIcon-2.png' %}">
                     </div>
                     <div class="feature-text">
                         <h3>GOALS </h3>
-                        <i class="fa-solid fa-quote-right"></i> 
-                        <p>To strengthen and improve the hospital's ability to provide and sustain health care services for the por, neglected, vulnerable and marginalizes segments of the society. The provision of these services will seek to empower the people it serves to take ownership of their own individual and collective health needs.</p>
+                        <i class="fa-solid fa-quote-right"></i>
+                        <p>To strengthen and improve the hospital's ability to provide and sustain health care services
+                            for the por, neglected, vulnerable and marginalizes segments of the society. The provision
+                            of these services will seek to empower the people it serves to take ownership of their own
+                            individual and collective health needs.</p>
                     </div>
                 </div>
                 <div class="feature" data-aos="fade-left">
                     <div class="feature-icon">
-                        <img src="images/chooseIcon-4.png" />
+                        <img src="{% static 'images/chooseIcon-4.png' %}" />
                     </div>
 
                     <div class="feature-text">
                         <h3>CORE VALUES</h3>
 
-<ul class="fa-bullets">
-  <!-- <i class="fa-solid fa-star">Ability of services to consistentently meet customer expectations</i>  -->
-  <i class="fa-solid fa-star"> &nbsp;Hard work</i> 
-<i class="fa-solid fa-star">&nbsp;Staff development</i>
-  <i class="fa-solid fa-star">&nbsp;Discipline</i> <br>
-  <i class="fa-solid fa-star">&nbsp;Team work</i> 
-  <i class="fa-solid fa-star">&nbsp;Spirituality</i> 
+                        <ul class="fa-bullets">
+                            <!-- <i class="fa-solid fa-star">Ability of services to consistentently meet customer expectations</i>  -->
+                            <i class="fa-solid fa-star"> &nbsp;Hard work</i>
+                            <i class="fa-solid fa-star">&nbsp;Staff development</i>
+                            <i class="fa-solid fa-star">&nbsp;Discipline</i> <br>
+                            <i class="fa-solid fa-star">&nbsp;Team work</i>
+                            <i class="fa-solid fa-star">&nbsp;Spirituality</i>
 
-</ul>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-        <section class="counter-section">
+    <section class="counter-section">
         <div class="flex-row flex-row-counter">
             <div data-aos="fade-up">
                 <i class="fas fa-briefcase-medical counterIcon"></i>
                 <div class="counter" data-target="60">0</div>
-                <p>Doctors</p> 
-            </div> 
+                <p>Doctors</p>
+            </div>
             <div data-aos="fade-up" data-aos-delay="100">
                 <i class="fa-solid fa-person counterIcon"></i>
                 <div class="counter" data-target="300">0</div>
@@ -211,19 +259,22 @@
         <div class="left-column" data-aos="fade-right">
             <h2>Latest News & Events</h2>
             <h3>MCH ENDOWMENT FUND</h3>
-            <P>As part of the 30th Anniversary Celebration, MCH has launched an Endowment Fund to implement the new Hospital Master Plan.</P>
+            <P>As part of the 30th Anniversary Celebration, MCH has launched an Endowment Fund to implement the new
+                Hospital Master Plan.</P>
             <div class="articles">
                 <div class="article">
                     <img src="images/mch1.jpg" alt="Doctor Image 1">
                     <h3> Construction of a Maternity Block</h3>
                     <small>Nov 17, 2025 | Admin</small>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+                    </p>
                 </div>
                 <div class="article">
                     <img src="images/ban-2.jpg" alt="Doctor Image 2">
                     <h3>Lorem ipsum dolor sit amet,</h3>
                     <small>April 19, 2017 | Dr. Jon Doe</small>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+                    </p>
                 </div>
             </div>
             <a href="#" class="read-more-btn">READ MORE</a>
@@ -240,8 +291,9 @@
                     Accident & Emergency
                 </div>
                 <div class="accordion-content">
-                   
-The Accident and Emergency Department at  Mathias Catholic Hospital is a critical facility providing emergency medical care to patients in need. Comprising several key units such as:
+
+                    The Accident and Emergency Department at Mathias Catholic Hospital is a critical facility providing
+                    emergency medical care to patients in need. Comprising several key units such as:
                 </div>
             </div>
 
@@ -251,7 +303,12 @@ The Accident and Emergency Department at  Mathias Catholic Hospital is a critica
                     Obstetrics & Gynaecology
                 </div>
                 <div class="accordion-content">
-                    The Obstetrics and Gynaecology Department at Mathias Catholic Hospital is a leading provider of comprehensive women's healthcare services. With eight specialized units and a capacity of 56 beds, our dedicated team of specialists and midwives ensures personalized care for every patient. Recognized nationally for our excellence, we offer round-the-clock emergency and delivery services, daily outpatient care, and advanced surgical procedures. Collaborating with other healthcare facilities, we ensure seamless referrals and multidisciplinary care.
+                    The Obstetrics and Gynaecology Department at Mathias Catholic Hospital is a leading provider of
+                    comprehensive women's healthcare services. With eight specialized units and a capacity of 56 beds,
+                    our dedicated team of specialists and midwives ensures personalized care for every patient.
+                    Recognized nationally for our excellence, we offer round-the-clock emergency and delivery services,
+                    daily outpatient care, and advanced surgical procedures. Collaborating with other healthcare
+                    facilities, we ensure seamless referrals and multidisciplinary care.
                 </div>
             </div>
 
@@ -261,10 +318,15 @@ The Accident and Emergency Department at  Mathias Catholic Hospital is a critica
                     Child Health
                 </div>
                 <div class="accordion-content">
-                  
-Welcome to the Child Health Department at Mathias Catholic Hospital, where we provide comprehensive care tailored to the unique needs of children. Our services encompass a wide range of specialties, including.
+
+                    Welcome to the Child Health Department at Mathias Catholic Hospital, where we provide comprehensive
+                    care tailored to the unique needs of children. Our services encompass a wide range of specialties,
+                    including.
                 </div>
-            </div>
+            </di
+            
+            
+            v>
 
             <div class="accordion-item">
                 <div class="accordion-title">
@@ -272,7 +334,8 @@ Welcome to the Child Health Department at Mathias Catholic Hospital, where we pr
                     Imaging
                 </div>
                 <div class="accordion-content">
-The Imaging Department at Mathias Catholic Hospital offers a comprehensive range of advanced diagnostic imaging services, including:
+                    The Imaging Department at Mathias Catholic Hospital offers a comprehensive range of advanced
+                    diagnostic imaging services, including:
                 </div>
             </div>
         </div>
@@ -285,7 +348,7 @@ The Imaging Department at Mathias Catholic Hospital offers a comprehensive range
 
         <div class="gallery-grid">
             <div class="gallery-item" data-aos="fade-left">
-                <img src="{% static 'images/gallary-1.jpg' %}"> 
+                <img src="{% static 'images/gallary-1.jpg' %}">
                 <div class="gallery-overlay">
                     <h3>Image Title 1</h3>
                     <p>Brief description of the image or treatment here.</p>
@@ -332,7 +395,8 @@ The Imaging Department at Mathias Catholic Hospital offers a comprehensive range
 
     <section class="section team" id="team">
         <h2 data-aos="fade-right">Our Team</h2>
-        <p class="sub-heading" data-aos="fade-right">We're an overall gathering of doctors, producers, specialists and analyzers who are eager about unsolvable in medical services. </p>
+        <p class="sub-heading" data-aos="fade-right">We're an overall gathering of doctors, producers, specialists and
+            analyzers who are eager about unsolvable in medical services. </p>
         <div class="flex-row">
             <div class="card" data-aos="zoom-in"><img src="{% static 'images/team-1.jpg' %}" />
                 <h4>Most Rev. Appu Francis</h4>
@@ -358,9 +422,9 @@ The Imaging Department at Mathias Catholic Hospital offers a comprehensive range
         <div class="offer-container">
             <div class="offer-text">
                 <div class="container">
-    <h3  class="offer-section"> <span class="auto-type" id="auto-type"></span> </h3>
-  </div>
-    
+                    <h3 class="offer-section"> <span class="auto-type" id="auto-type"></span> </h3>
+                </div>
+
                 New Patient Special Offer Complimentary Consultation
             </div>
             <button class="offer-button">READ MORE</button>
@@ -377,7 +441,7 @@ The Imaging Department at Mathias Catholic Hospital offers a comprehensive range
                 <p><i><i class="fa-solid fa-phone"></i>Tel:</i> +233 814 9627</p>
                 <p><i><i class="fa-solid fa-location-dot"></i>GPS:</i>BP 0004-1497</p>
                 <p><i><i class="fa-solid fa-location-dot"></i></i> AE 41, Bishop Kwadwo Owusu Road, Yeji, Ghana</p>
-                
+
             </div>
 
             <!-- Column 2: Quick Links -->
@@ -417,16 +481,110 @@ The Imaging Department at Mathias Catholic Hospital offers a comprehensive range
             </div>
 
         </div>
+        <section class=" container testimonials mt-5 mb-5">
+            <div class="swiper testimonialSwiper container">
+                <div class="swiper-wrapper">
+                  
+                   
+                    <div class="swiper-slide">
+                        <div class="testimonial-card shadow-sm p-4 bg-white rounded-4 text-center">
+                            <img src="{% static 'images/ban-1.jpg'%}" alt="img" class="testimonial-img mb-3">
+                            <p class="testimonial-message text-secondary fst-italic">
+                                "{{ t.message|truncatewords:30 }}"
+                            </p>
+                            <div class="stars mb-2">
+                                ⭐⭐⭐⭐⭐
+                            </div>
+                            <h6 class="fw-bold text-dark mb-0">Kofi</h6>
+                            <small class="text-muted">kofi</small>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card shadow-sm p-4 bg-white rounded-4 text-center">
+                            <img src="{% static 'images/ban-1.jpg'%}" alt="{{ t.name }}" class="testimonial-img mb-3">
+                            <p class="testimonial-message text-secondary fst-italic">
+                                "{{ t.message|truncatewords:30 }}"
+                            </p>
+                            <div class="stars mb-2">
+                                ⭐⭐⭐⭐⭐
+                            </div>
+                            <h6 class="fw-bold text-dark mb-0">{{ t.name }}</h6>
+                            <small class="text-muted">Satisfied Patient</small>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card shadow-sm p-4 bg-white rounded-4 text-center">
+                            <img src="{% static 'images/ban-2.jpg'%}" alt="{{ t.name }}" class="testimonial-img mb-3">
+                            <p class="testimonial-message text-secondary fst-italic">
+                                "{{ t.message|truncatewords:30 }}"
+                            </p>
+                            <div class="stars mb-2">
+                                ⭐⭐⭐⭐⭐
+                            </div>
+                            <h6 class="fw-bold text-dark mb-0">Ama</h6>
+                            <small class="text-muted">Satisfied Patient</small>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- Swiper pagination -->
+                <div class="swiper-pagination mt-4"></div>
+            </div>
+        </section>
 
         <!-- Social Media -->
         <div class="footer-social">
             Copyright © 2025. Mathias Catholic Hospital- Yeji |
         </div>
     </footer>
+
+    <script>
+        var testimonialSwiper = new Swiper(".testimonialSwiper", {
+            effect: "fade",
+            grabCursor: true,
+            loop: true,
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    </script>
+
     <!-- scroll animation js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <!--custom js -->
     <script src="{% static 'js/custom.js'%}"></script>
 </body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var swiper = new Swiper(".mySwiper", {
+            effect: "fade",
+            loop: true,
+            speed: 2000,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+
+        }
+     
+    );
+    let Currentyear=document.getElementById("currentYear")
+    var Year= new Date()
+    Currentyear.innerText=Year.getFullYear()
+   
+    });
+
+</script>
 
 </html>
