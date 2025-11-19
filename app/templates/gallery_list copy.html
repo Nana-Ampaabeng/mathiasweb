@@ -1,0 +1,60 @@
+  {%load static%}
+  <section class="gallery-section mb-5">
+        <h2 class="text-center mb-4">Our Team</h2>
+        <div id="gallery" class="row g-4">
+            {% for img in images %}
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card staff-card h-100 shadow-sm border-0 overflow-hidden w-md-70 w-lg-50 h-md-70 h-lg-50">
+                    <div class="staff-img-container position-relative"> 
+                        {% if img.staff_pic %} 
+                        <img src="{{ img.staff_pic.url }}" class="card-img-top staff-image" alt="{{ img.staff_name }}">
+                        {%else%}
+                        <img src="{% static 'images/pic.jpg' %}" class="card-img-top staff-image"
+                            alt="{{ img.staff_name }}">
+                        {%endif%}
+                        <div 
+                            class="department-badge position-absolute top-0 end-0 m-2  text-white px-2 py-1 rounded-pill small" style="background-color: #223a66; color: white;">
+                            {{ img.department.Name|default:"General" }}
+                        </div>   
+                    </div>       
+                    <div class="card-body text-center p-3">
+                        <h5 class="card-title mb-1">{{ img.staff_name }}</h5>
+                        <p class="card-text  fw-semibold mb-2">{{ img.staff_position }}</p>
+                        <!-- <p class="card-text text-muted small mb-3">{{ img.bio|default:"Dedicated healthcare professional committed to patient care."|truncatewords:15 }}</p> -->
+                        <div class="staff-meta d-flex justify-content-center small text-muted">
+                            <span class="me-3">
+                                <!-- <i class="bi bi-award me-1"></i> {{ img.experience|default:"5+" }} years -->
+                            </span>
+                            <span>
+                                <i class="bi bi-star-fill me-1 text-warning"></i> 4.8
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    {% if images.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ images.previous_page_number }}">Previous</a>
+      </li>
+    {% endif %}
+
+    {% for num in images.paginator.page_range %}
+      <li class="page-item {% if num == images.number %}active{% endif %}">
+        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+      </li>
+    {% endfor %}
+
+    {% if images.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ images.next_page_number }}">Next</a>
+      </li> 
+    {% endif %}
+  </ul> 
+
+</nav>

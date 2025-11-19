@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    /* ====== Layout ====== */
+    .departments {
+        display: flex;
+        gap: 50px;
+        margin-top: 20px;
+    }
+
+    .departments_bar {
+        width: 300px;
+        transition: all 0.4s ease;
+    }
+
+    .department_details {
+        flex: 1;
+        transition: all 0.5s ease;
+    }
+
+    /* ====== Cards ====== */
+    .render_dep,
+    .render_wt,
+    .render_qu_cont {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background: white;
+        /* padding: 10px; */
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+
+
+    .render_dep h4 {
+        background-color: #00c6a9;
+        color: white;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        display: block;
+    }
+
+    .render_dep a {
+        display: block;
+        color: #333;
+        font-weight: 500;
+        padding: 8px 0;
+        text-decoration: none;
+    }
+
+    .render_dep a:hover {
+        color: #00bcd4;
+    }
+
+    .department_name {
+        font-size: 22px;
+        font-weight: bold;
+        margin: 20px 0 10px;
+    }
+
+    .charge_details {
+        /* text-align: center; */
+    }
+
+    .charge_details img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    /* ====== Mobile View ====== */
+    @media (max-width: 768px) {
+        .departments {
+            flex-direction: column;
+        }
+
+        .departments_bar {
+            width: 100%;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+        }
+
+        .departments_bar.active {
+            max-height: 1000px;
+            opacity: 1;
+        }
+
+        .render_wt,
+        .render_qu_cont {
+            display: none;
+        }
+
+        .toggle-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #00bcd4;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .toggle-btn span {
+            font-size: 20px;
+        }
+
+        .render_dep h4{
+            display: none;
+        }
+
+    }
+
+    @media (min-width: 769px) {
+        .toggle-btn {
+            display: none;
+        }
+        
+
+    }
+
+    hr{
+        border: none;
+        background-color: black;
+        height: 1px; 
+    }
+</style>
+
+<div class="container departments mt-5">
+    <!-- Mobile toggle button -->
+    <div class="toggle-btn" id="toggleBtn">
+        Departments 
+        <span id="toggleIcon">&gt;</span>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="departments_bar" id="sidebar">
+        <div class="render_dep mb-4">
+            <h4>Departments</h2>
+                {% for department in departments %}
+                <a href="#" class="dept-link text-center" data-id="{{ department.id }}">{{ department.Name }}</a>
+                <hr>
+                {% endfor %}
+        </div>
+        
+        <div class="render_wt mb-4">
+            <p style="background-color: #00c6a9; text-align: center; color: white; padding: 10px;"><strong> Opening Hours: </strong></p>
+            <div class="p-3 text-center">24/7</div>
+        </div>
+        <div class="render_qu_cont mb-4">
+            <p style="background-color: #00c6a9; text-align: center; color: white; padding: 10px;"><strong>Quick Contact</strong></p>
+            <p class="mx-4 text-center">📞 233274473112</p>
+            <p class="mx-4 mb-4 text-center">📧 info@smhdrobo.com</p>
+        </div>
+    </div>
+
+    <!-- Department details -->
+    <div class="department_details" id="deptDetails">
+        <div id="deptCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% if default_info.image1 %}
+                <div class="carousel-item active">
+                    <img src="{{ default_info.image1.url }}" class="d-block w-100"
+                        style="height:60vh; object-fit:cover;">
+                </div>
+                {% endif %}
+                {% if default_info.image2 %}
+                <div class="carousel-item">
+                    <img src="{{ default_info.image2.url }}" class="d-block w-100"
+                        style="height:60vh; object-fit:cover;">
+                </div> 
+                {% endif %}
+                {% if default_info.image3 %}
+                <div class="carousel-item">
+                    <img src="{{ default_info.image3.url }}" class="d-block w-100"
+                        style="height:60vh; object-fit:cover;">
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Carousel controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#deptCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#deptCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+
+        <div class="department_name">{{ default_department.Name }}</div>
+        <hr>
+        <h4>Meet the In Charge</h4>
+        <div class="charge_details">
+            <img src="{{ default_info.in_charge_img.url }}" alt="">
+            <p class="name">{{ default_info.in_charge_name }}</p>
+        </div>
+    </div>
+</div>
+
+<!-- AJAX + Mobile toggle -->
+<script>
+    // ===== AJAX =====
+    document.querySelectorAll('.dept-link').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const deptId = this.getAttribute('data-id');
+
+            fetch(`/get-department-info/${deptId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    const deptDetails = document.getElementById('deptDetails');
+
+                    if (data.error || !data.image1 && !data.image2 && !data.image3) {
+                        deptDetails.innerHTML = `
+                            <div class="alert alert-warning text-center mt-3">
+                                No information available for this department.
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    let carouselItems = '';
+                    [data.image1, data.image2, data.image3].forEach((img, index) => {
+                        if (img) {
+                            carouselItems += `
+                                <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                                    <img src="${img}" class="d-block w-100" style="height:60vh; object-fit:cover;">
+                                </div>`;
+                        }
+                    });
+
+                    deptDetails.innerHTML = `
+                        <div id="deptCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+                            <div class="carousel-inner">${carouselItems}</div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#deptCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#deptCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+
+                        <div class="department_name">${data.department_name}</div>
+                        <h4>Meet the In Charge</h4>
+                        <div class="charge_details">
+                            <img src="${data.in_charge_img}" alt="">
+                            <p class="name">${data.in_charge_name}</p>
+                        </div>
+                    `;
+                })
+                .catch(() => {
+                    document.getElementById('deptDetails').innerHTML = `
+                        <div class="alert alert-info text-center mt-3">
+                           No data found.
+                        </div>
+                    `;
+                });
+        });
+    });
+
+    // ===== Mobile sidebar toggle =====
+    const toggleBtn = document.getElementById('toggleBtn');
+    const sidebar = document.getElementById('sidebar');
+    const toggleIcon = document.getElementById('toggleIcon');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+        toggleIcon.textContent = sidebar.classList.contains('active') ? '↓' : '>';
+    });
+</script>
+{% endblock %}

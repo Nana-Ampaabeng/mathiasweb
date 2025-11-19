@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+{% for message in messages%}
+{{message}}
+{%endfor%}
+
+{% for error in form.errors%}
+    {{error}}
+{%endfor%}
+<form action="" method="post">
+    {%csrf_token%}
+    {{form.as_p}}
+    <button type="submit">submit</button>
+</form>
+{%endblock%}

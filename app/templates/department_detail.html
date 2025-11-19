@@ -1,0 +1,12 @@
+{% if dept_info %}
+  <div>
+    <img src="{{ dept_info.image1.url }}" alt="" class="img-fluid rounded mb-3">
+    <h4>Our {{ dept_info.department.Name }}</h4>
+    <hr>
+    <h5>Meet the In Charge</h5>
+    <img src="{{ dept_info.in_charge_img.url }}" alt="" class="img-thumbnail mb-2" width="150">
+    <p><strong>{{ dept_info.in_charge_name }}</strong></p>
+  </div>
+{% else %}
+  <p>No information available for this department.</p>
+{% endif %}

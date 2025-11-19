@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block title%}Add Testimonial{%endblock%}
+{%block content %}
+  <style>
+
+
+    /* canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    } */
+
+    .form-container {
+      max-width: 500px;
+      margin: 1vh auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #007BFF;
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+
+  <div class="form-container mt-4">
+    <h1>Share Your Experience</h1>
+    <form method="post" enctype="multipart/form-data"> 
+      {% csrf_token %} 
+      {{ form.as_p }}
+      <button type="submit">Submit Testimonial</button>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('hospitalScene'), alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Add floating spheres to simulate "medical bubbles"
+    const geometry = new THREE.SphereGeometry(0.3, 32, 32);
+    const material = new THREE.MeshStandardMaterial({ color: 0x00bcd4, emissive: 0x007bff, roughness: 0.3 });
+    const spheres = [];
+
+    for (let i = 0; i < 20; i++) {
+      const sphere = new THREE.Mesh(geometry, material);
+      sphere.position.set(
+        (Math.random() - 0.5) * 20,
+        (Math.random() - 0.5) * 10,
+        (Math.random() - 0.5) * 10
+      );
+      scene.add(sphere);
+      spheres.push(sphere);
+    }
+
+    // Lighting
+    const light = new THREE.PointLight(0xffffff, 1);
+    light.position.set(5, 5, 5);
+    scene.add(light);
+
+    camera.position.z = 8;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      spheres.forEach((s) => {
+        s.rotation.x += 0.09;
+        s.rotation.y += 0.09;
+        s.position.y += Math.sin(Date.now() * 0.001 + s.position.x) * 0.001; 
+      });
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script> -->
+{%endblock%}

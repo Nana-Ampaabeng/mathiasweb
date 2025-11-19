@@ -1,0 +1,594 @@
+{%extends 'base.html'%}
+{% load static %}
+  {% block title%}My Patients - Doctor Dashboard{%endblock%}
+  {% block content %}
+  <style>
+    :root {
+      --primary: #2c5aa0;
+      --secondary: #6c757d;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --info: #17a2b8;
+      --light: #f8f9fa;
+      --dark: #343a40;
+    }
+    
+    body { 
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%); 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+    }
+    
+    .header-section {
+      background: linear-gradient(135deg, var(--primary), #1e3d6d);
+      color: white;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .patient-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+      padding: 0 1rem;
+    }
+    
+    .patient-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: none;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .patient-card:hover { 
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+    
+    .patient-header {
+      background: linear-gradient(135deg, var(--primary), #3a7bd5);
+      color: white;
+      padding: 1.2rem;
+      position: relative;
+    }
+    
+    .patient-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-right: 1rem;
+    }
+    
+    .status-badge {
+      border-radius: 50px;
+      font-size: 0.8rem;
+      padding: 6px 16px;
+      font-weight: 600;
+      text-transform: capitalize;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .status-pending { background: linear-gradient(135deg, var(--warning), #ff8c00); color: white; }
+    .status-approved { background: linear-gradient(135deg, var(--info), #2980b9); color: white; }
+    .status-complete { background: linear-gradient(135deg, var(--success), #27ae60); color: white; }
+    .status-cancelled { background: linear-gradient(135deg, var(--danger), #c0392b); color: white; }
+    
+    .patient-body {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .info-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    
+    .info-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      color: var(--primary);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    
+    .info-content {
+      flex-grow: 1;
+      min-width: 0; /* Allows text truncation */
+    }
+    
+    .complain-box {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 1.2rem;
+      border-left: 4px solid var(--primary);
+      margin: 1.5rem 0;
+      flex-grow: 1;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+    
+    .btn-cancel {
+      background: linear-gradient(135deg, var(--danger), #e74c3c);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      flex: 1;
+      min-width: 120px;
+    }
+    
+    .btn-cancel:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+    }
+    
+    .btn-view {
+      background: linear-gradient(135deg, var(--primary), #3498db);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      flex: 1;
+      min-width: 120px;
+    }
+    
+    .btn-view:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3);
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--secondary);
+      grid-column: 1 / -1;
+    }
+    
+    .empty-state i {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.5;
+    }
+    
+    .patient-count {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary), #3498db);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    /* SweetAlert Custom Styles */
+    .swal2-popup {
+      border-radius: 20px !important;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+    }
+
+    .swal2-title {
+      font-size: 1.5rem !important;
+      font-weight: 600 !important;
+    }
+
+    .swal2-actions button {
+      border-radius: 10px !important;
+      padding: 10px 25px !important;
+      font-weight: 600 !important;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .header-section {
+        padding: 1.5rem 0;
+      }
+      
+      .patient-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 0.5rem;
+      }
+      
+      .patient-header {
+        padding: 1rem;
+      }
+      
+      .patient-avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+      
+      .patient-body {
+        padding: 1rem;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .btn-cancel, .btn-view {
+        flex: none;
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .patient-header .d-flex {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .patient-avatar {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+      }
+      
+      .status-badge {
+        margin-top: 0.5rem;
+        align-self: flex-start;
+      }
+      
+      .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .info-icon {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+      }
+    }
+  </style>
+ 
+
+  <!-- Header Section -->
+  <section class="header-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="display-5 fw-bold mb-3 text-black fs-1"><i class="fas fa-user-md me-3"></i>Dr.{{request.user}} Patients</div>
+          <p class="lead mb-0">Welcome back, Doctor {{request.user}}! Manage your patient appointments efficiently.</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <div class="patient-count">
+            <h3 class="gradient-text mb-1">{{ doctor_patients.count }}</h3>
+            <p class="text-muted mb-0">Total Patients</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Patients Grid -->
+  <div class="container-fluid px-0 mb-4">
+    {% if messages %}
+      {% for message in messages %}
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+              icon: '{{ message.tags }}',
+              title: '{{ message|escapejs }}',
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              background: '#fff',
+              iconColor: '{% if message.tags == "success" %}#28a745{% elif message.tags == "error" %}#dc3545{% elif message.tags == "warning" %}#ffc107{% else %}#17a2b8{% endif %}'
+            });
+          });
+        </script>
+      {% endfor %}
+    {% endif %}
+
+    {% if doctor_patients %}
+      <div class="container patient-grid">
+        {% for patient in doctor_patients %}
+          <div class="patient-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:50 }}">
+            <!-- Card Header -->
+            <div class="patient-header">
+              <div class="d-flex align-items-center">
+                <div class="patient-avatar">
+                  {{ patient.full_name|first|upper }}
+                </div>
+                <div class="flex-grow-1">
+                  <h5 class="mb-1 fw-bold">{{ patient.full_name }}</h5>
+                  <p class="mb-0 opacity-75">
+                    {% if patient.Gender == 'male' %}
+                      <i class="fas fa-mars me-1"></i>Male
+                    {% else %}
+                      <i class="fas fa-venus me-1"></i>Female
+                    {% endif %}
+                  </p>
+                </div>
+                <span class="status-badge status-{{ patient.Status }}">
+                  {{ patient.Status }}
+                </span>
+              </div>
+            </div>
+            
+            <!-- Card Body -->
+            <div class="patient-body">
+              <!-- Contact Info -->
+              <div class="info-item">
+                <div class="info-icon">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div class="info-content">
+                  <strong>Phone:</strong><br>
+                  {{ patient.phone_number }}
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <div class="info-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="info-content">
+                  <strong>Email:</strong><br>
+                  {{ patient.email }}
+                </div>
+              </div>
+              
+              <!-- Appointment Info -->
+              <div class="info-item">
+                <div class="info-icon">
+                  <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="info-content">
+                  <strong>Appointment:</strong><br>
+                  {{ patient.date }} at {{ patient.time }}
+                </div>
+              </div>
+              
+              <!-- Reference Code -->
+              <div class="info-item">
+                <div class="info-icon">
+                  <i class="fas fa-hashtag"></i>
+                </div>
+                <div class="info-content">
+                  <strong>Reference:</strong><br>
+                  {{ patient.refrence|default:"Not assigned" }}
+                </div>
+              </div>
+              
+              <!-- Patient Complaint -->
+              <div class="complain-box">
+                <h6 class="text-primary mb-2"><i class="fas fa-comment-medical me-2"></i>Patient Complaint</h6>
+                <p class="mb-0">{{ patient.Complain }}</p>
+              </div>
+              
+              <!-- Action Buttons -->
+              <div class="action-buttons">
+                {% if patient.Status == "approved" %}
+                <button class="btn-view" onclick="confirmCompletion({{ patient.id }},'{{ patient.full_name|escapejs }}')">
+                  <i class="fas fa-check-circle me-2"></i>Completed
+                </button>
+                {% endif %} 
+                
+                {% if patient.Status != "cancelled" and patient.Status != "complete" %}
+                <button class="btn-cancel" onclick="confirmCancellation({{ patient.id }}, '{{ patient.full_name|escapejs }}')">
+                  <i class="fas fa-times me-2"></i>Cancel
+                </button>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <!-- Empty State -->
+      <div class="empty-state" data-aos="fade-up">
+        <i class="fas fa-user-slash"></i>
+        <h3 class="text-muted">No Patients Assigned</h3>
+        <p class="text-muted">You don't have any patients assigned to you yet.</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Hidden Form for Cancellation -->
+  <form id="cancelForm" method="post" style="display: none;">
+    {% csrf_token %}
+    <input type="hidden" name="patient_id" id="patientIdInput">
+  </form>
+
+  <form id="completeForm" method="post" style="display: none;">
+    {% csrf_token %}
+    <input type="hidden" name="patient_id" id="patientIdInput">
+  </form>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    // Initialize animations
+    AOS.init({
+      duration: 800, 
+      once: true
+    });
+    
+    // View patient details function
+    function viewPatientDetails(patientId) {
+      Swal.fire({
+        title: 'Patient Details',
+        text: 'Redirecting to patient details page...',
+        icon: 'info',
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#2c5aa0'
+      });
+      
+    }
+    
+    // Confirm cancellation with SweetAlert
+    function confirmCancellation(patientId, patientName) {
+      Swal.fire({
+        title: 'Cancel Appointment?',
+        html: `<p>Are you sure you want to cancel the appointment for <strong>${patientName}</strong>?</p>
+               <p class="text-danger"><small>This action cannot be undone.</small></p>`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, Cancel Appointment',
+        cancelButtonText: 'No, Keep It',
+        reverseButtons: true,
+        backdrop: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Submit the cancellation form
+          document.getElementById('patientIdInput').value = patientId;
+          const form = document.getElementById('cancelForm');
+          form.action = `/cancel-appointment/${patientId}/`;
+          form.submit();
+          
+          // Show loading state
+          Swal.fire({
+            title: 'Cancelling...',
+            text: 'Please wait while we process your request',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            }
+          });
+        }
+      });
+    }
+    
+    function confirmCompletion(patientId, patientName) {
+      Swal.fire({
+        title: 'Complete Appointment?',
+        html: `<p>Are you sure you have completed the appointment for <strong>${patientName}</strong>?</p>
+               <p class="text-success"><small>This will mark the appointment as complete.</small></p>`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, Complete Appointment',
+        cancelButtonText: 'No, Keep It',
+        reverseButtons: true,
+        backdrop: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Submit the completion form
+          document.getElementById('patientIdInput').value = patientId;
+          const form = document.getElementById('completeForm');
+          form.action = `/complete-appointment/${patientId}/`;
+          form.submit();
+          
+          // Show loading state
+          Swal.fire({
+            title: 'Completing...',
+            text: 'Please wait while we process your request',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            }
+          });
+        }
+      });
+    }
+    
+    // Add smooth scrolling and animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add loading animation to cards
+      const cards = document.querySelectorAll('.patient-card');
+      cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+      });
+      
+      // Add click animations to buttons
+      const buttons = document.querySelectorAll('.btn-view, .btn-cancel');
+      buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          // Add ripple effect
+          const ripple = document.createElement('span');
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const x = e.clientX - rect.left - size / 2;
+          const y = e.clientY - rect.top - size / 2;
+          
+          ripple.style.cssText = `
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}px;
+            top: ${y}px;
+            pointer-events: none;
+          `;
+          
+          this.style.position = 'relative';
+          this.style.overflow = 'hidden';
+          this.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.remove();
+          }, 600);
+        });
+      });
+    });
+
+    // Add ripple animation to CSS
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+{%endblock%}

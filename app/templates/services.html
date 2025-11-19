@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .hero-service {
+        background-image:linear-gradient(rgba(31, 30, 30, 0.8)),
+        url("{% static 'images/d1.jpg'%}");
+        width: 100%;
+        height: 60vh;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+    }
+
+
+    .service-text,
+    .info-service-text {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center; 
+        justify-content: center;
+        color: rgb(255, 255, 255);
+        text-align: center;
+        z-index: 2;
+        gap: 10px;
+    }
+
+    .service-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1%;
+        justify-items: center;
+    }
+
+    .info-service {
+        background-image: url("{% static 'images/banner.jpg' %}");
+        padding: 100px 0;
+        height: 90vh;
+        background-size: cover;
+        position: relative;
+    }
+    @media (max-width:786px) {
+        .info-service{
+            display: none;
+        }
+        .health-section{
+            transform: translateY(120px);
+        }
+         .Page{
+            transform: translateY(300px);
+        }
+    } 
+
+    .health-section {
+        background-color:  #00c6a9;
+        color: #fff;
+        border-radius: 10px;
+        padding: 60px 40px;
+        margin: 40px 0;
+        margin-top: 20px;
+        background-size: cover;
+    }
+
+    .health-section h2 {
+        font-weight: 700;
+        font-size: 2rem;
+    }
+
+    .health-section p {
+        color: #f8f8f8;
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+
+    .health-points li {
+        list-style: none;
+        margin-bottom: 10px;
+        font-size: 1.05rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .health-points li::before {
+        content: "✔";
+        color: #fff;
+        font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+        .health-section {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .health-points {
+            margin-top: 20px;
+        }
+
+        .health-section h2 {
+            font-size: 1.6rem;
+        }
+      
+    }
+</style>
+
+<div class="hero-service">
+    <h3 class="service-text">Our Services What we do </h3>
+    <h3 class="service-text"> </h3>
+</div>
+
+<!-- In today’s fast-paced world, maintaining good health is more important than ever. -->
+<div id="service-container mb-4">
+    {% include 'service_lists.html' %}
+</div>
+
+<!-- another seciton in service page -->
+<section class="info-service">
+    <div class="info-service-text fs-1 fw-bold">
+        <span style="color: black;">We are pleased to offer you the</span><span style="color: #223a66;">chance to have
+            the healthy</span>
+    </div>
+</section>
+
+<div class="container mt-4">
+    <div class="health-section row align-items-center">
+        <!-- Left Text -->
+        <div class="col-md-7">
+            <h2>We simplify your life; we simply work to make you healthy</h2>
+            <p>From physical fitness to mental well-being, a holistic approach to health can lead to a fulfilling and
+                vibrant life.</p>
+        </div>
+
+        <!-- Right List -->
+        <div class="col-md-5">
+            <ul class="health-points">
+                <li>Medical Treatment</li>
+                <li>Qualified Doctors</li>
+                <li>24 Hours Services</li>
+                <li>Emergency Services</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+<script>
+
+    var typed = new Typed('.ourServices', {
+        strings: ['Child care', 'Personal Care', 'CT scan', 'Joint replacement', 'Examination & Diagnosis', "Alzheimer's disease"],
+        typeSpeed: 50,
+        backSpeed: 60,
+        loop: true
+    });
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('page-link')) {
+            e.preventDefault();
+            const url = e.target.getAttribute('href');
+
+            fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+                .then(response => response.text())
+                .then(html => {
+                    document.querySelector('#service-container').innerHTML = html;
+                    window.scrollTo(0, 0); // scroll to top smoothly
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    });
+</script>
+
+{%endblock%}
