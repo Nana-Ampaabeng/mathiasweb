@@ -1,0 +1,108 @@
+
+:root {
+  --primary-color: #00c6a9;
+  --primary-hover: #029882;
+  --accent-color: #59c3aa;
+  --secondary-color: #44b4a7;
+  --background-color: #f8f9fa;
+  --text-color: #333;
+  --white: #ffffff;
+  --black: #111111;
+  --gray: #ccc;
+  --gray-light: #f1f1f1;
+  --gray-dark: #707070;
+  --dark-bg: #222222;
+}
+/* Scrollbar */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+body::-webkit-scrollbar-track {
+  background: var(--gray-light);
+}
+body::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
+}
+
+.footer {
+  background-color: var(--black);
+  color: var(--gray);
+  padding: 50px 20px 0px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-column {
+  flex: 1 1 220px;
+  min-width: 220px;
+}
+.footer-column h3 {
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+.footer-column ul li::before {
+  content: '▸';
+  color: var(--primary-color);
+  margin-right: 8px;
+}
+.footer-column p {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+.footer-column p i {
+  margin-right: 10px;
+  font-style: normal;
+}
+.footer-form input,
+.footer-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  background: var(--dark-bg);
+  border: none;
+  border-bottom: 1px solid #555;
+  color: var(--white);
+}
+.footer-form button {
+  padding: 10px 30px;
+  border: none;
+  background: var(--primary-color);
+  color: var(--white);
+  border-radius: 20px;
+  cursor: pointer;
+  border: 3px solid var(--primary-color) !important;
+}
+.footer-social {
+  text-align: center;
+  margin-top: 30px;
+  background: var(--dark-bg);
+  padding: 29px;
+  margin: -20px;
+  margin-top: 20px;
+}
+.footer-social a {
+  color: var(--white);
+  margin: 0 10px;
+  font-size: 20px;
+  text-decoration: none;
+}

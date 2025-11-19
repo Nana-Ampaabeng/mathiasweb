@@ -1,0 +1,36 @@
+
+ 
+</style>
+<div class="service-cards container mt-4 mb-4">
+    {% for service in services %}
+    <div class="card" style="width: 21rem; padding:0 0 30px 0;">
+        <img src="{{ service.Icon.url }}" alt="{{ service.Title }}" class="img-fluid">
+        <div class="card-body">
+            <h5 class="card-title" style="color:#223a66;">{{ service.Title }}</h5>
+            <p class="card-text">{{ service.info }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div> 
+
+<nav aria-label="Page navigation myown mt-4">
+  <ul class="pagination justify-content-center">
+    {% if services.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ services.previous_page_number }}">Previous</a>
+      </li>
+    {% endif %}
+
+    {% for num in services.paginator.page_range %}
+      <li class="page-item {% if num == services.number %}active{% endif %}">
+        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+      </li>
+    {% endfor %}
+
+    {% if services.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ services.next_page_number }}">Next</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>

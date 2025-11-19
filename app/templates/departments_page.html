@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <style>
+    body {
+      background-color: #f7f9fb;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .sidebar {
+      background-color: #00bcd4;
+      color: white;
+      height: 100vh;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar li {
+      margin: 10px 0;
+      cursor: pointer;
+      background: white;
+      color: #00bcd4;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .sidebar li:hover {
+      background: #0097a7;
+      color: white;
+    }
+    .department-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      min-height: 90vh;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+ 
+  <div class="container-fluid mt-3">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3">
+        <div class="sidebar">
+          <h5>Departments</h5>
+          <ul>
+            {% for dept in departments %}
+              <li data-id="{{ dept.id }}">{{ dept.Name }}</li>
+            {% empty %}
+              <li>No Departments Found</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="col-md-9">
+        <div id="department-detail" class="department-content">
+          {% include 'department_detail.html' with dept_info=dept_info %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".sidebar li").click(function(){
+        var deptId = $(this).data("id");
+
+        $.ajax({
+          url: "/departments/" + deptId + "/",
+          success: function(data){
+            $("#department-detail").html(data.html);
+          }
+        });
+      });
+    });
+  </script>
+ 
+{%endblock%} 

@@ -1,0 +1,988 @@
+{%extends 'base.html' %}
+{%load static %}
+
+{%block content%}
+<style>
+    /* swiper */
+    .man {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+
+    }
+
+   
+
+    /* Set Background Images with Gradient */
+    .slide1,
+    .slide2,
+    .slide3 {
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        object-fit: cover;
+    }
+
+    .slide1 {
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 70%),
+        url("{% static 'images/d1.jpg' %}");
+    }
+
+    .slide2 {
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 70%),
+        url("{% static 'images/d2.jpg' %}");
+    }
+
+    .slide3 {
+        background-image: linear-gradient(to left, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 70%),
+        url("{% static 'images/d3.jpg' %}");
+    }
+
+    /* Overlay Content */
+    .overlay {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        color: black;
+        text-align: left;
+        padding-left: 10%;
+        z-index: 2;
+    }
+
+    /* Animations for Text */
+    .overlay h1,
+    .overlay p {
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeSlideIn 1.5s ease-in-out forwards;
+    }
+
+    .overlay h1 {
+        font-size: 3rem;
+        animation-delay: 0.3s;
+    }
+
+    .overlay p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        animation-delay: 0.6s;
+    }
+
+    .overlay .btn {
+        padding: 10px 25px;
+        font-size: 1.2rem;
+        border-radius: 25px;
+        transition: transform 2s opacity 1s;
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeUp 1.5s ease-in-out 0.9s forwards;
+
+    }
+
+    /* Button Hover Effect */
+    .overlay .btn:hover {
+        transform: scale(1.1);
+    }
+
+    @keyframes fadeSlideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-100px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeUp {
+        0% {
+            opacity: 0;
+            transform: translateY(100px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+
+    /* about SECTION */
+    .about {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1588776814546-779c3b0a9f3a?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+        padding: 60px 8%;
+    }
+
+    .about-content {
+        flex: 1 1 450px;
+        max-width: 600px;
+    }
+
+    .about h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #222;
+    }
+
+    .about h1 span {
+        color: #00bcd4;
+    }
+
+    .about p {
+        margin: 15px 0;
+        line-height: 1.6;
+        color: #555;
+    }
+
+    .about ul {
+        list-style: none;
+        margin: 15px 0;
+    }
+
+    .about ul li {
+        margin-bottom: 8px;
+    }
+
+    .about ul li::before {
+        content: "+ ";
+        color: #00bcd4;
+        font-weight: bold;
+    }
+
+    .about-icons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .icon-box {
+        background: #00bcd4;
+        color: #fff;
+        padding: 15px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .icon-box:hover {
+        background: #0097a7;
+    }
+
+    .icon-box.red {
+        background: #f44336;
+    }
+
+    .about-image {
+        flex: 1 1 300px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .about-image img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* SERVICES SECTION */
+    .services {
+        padding: 60px 8%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        align-items: start;
+        justify-items: center;
+    }
+
+    .service-card {
+        background: #f9f9f9;
+        padding: 25px;
+        border-radius: 10px;
+        text-align: left;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-icon {
+        width: px;
+        height: 50px;
+        background: #00bcd4;
+        color: #fff;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .service-card h3 {
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .service-card p {
+        color: #555;
+        line-height: 1.6;
+    }
+
+    /* .service-image {
+        grid-column: span 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .service-image img {
+        width: 100%;
+        max-width: 450px;
+        border-radius: 10px;
+    } */
+
+    /* who we are */
+    .who_we_are {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        padding: 10px;
+    }
+
+
+
+
+    /* testimonial */
+.testimonial-title {
+  font-size: 2rem;
+  color: #28a745;
+  font-weight: 700;
+}
+
+.testimonial-card {
+  max-width: 500px;
+  margin: auto;
+  background: linear-gradient(135deg, #ffffff, #f9f9f9);
+  border-left: 6px solid #28a745;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #28a745;
+  margin: 0 auto;
+}
+
+.testimonial-message {
+  font-size: 1rem;
+  color: #555;
+  margin: 15px 0;
+}
+
+.stars {
+  color: gold;
+  font-size: 1.2rem;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #28a745 !important;
+}
+
+.swiper {
+  width: 100%;
+  padding: 40px 0;
+}
+
+    /* doctors section */
+
+
+ 
+
+    @media (max-width: 768px) {
+       
+      
+ 
+    
+   
+        .cards-container {
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            width: 18rem;
+            padding: 30px 25px;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+        }
+
+        .phone-number {
+            font-size: 1.6rem;
+        }
+
+            /* second */
+   
+        .about {
+            flex-direction: column-reverse;
+            text-align: center;
+        }
+
+        .about-image img {
+            width: 80%;
+        }
+
+        .services {
+            grid-template-columns: 1fr;
+        }
+
+        .service-image {
+            grid-column: span 1;
+        }
+
+        .slide1 {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 70%),
+            url("{% static 'images/ds1.jpg' %}");
+        }
+
+        .slide2 {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 70%),
+            url("{% static 'images/ds2.jpg' %}");
+        }
+
+        .slide3 {
+            background-image: linear-gradient(to left, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 70%),
+            url("{% static 'images/ds3.jpg' %}");
+        }
+
+
+        .video {
+            width: 300px;
+       
+    }
+    
+    }
+
+    @media (max-width: 480px) {
+        .section-title {
+            font-size: 2rem;
+        }
+
+   
+        .doctor-image {
+            width: 120px;
+            height: 120px;
+        }
+
+        .doctor-name {
+            font-size: 1.3rem;
+        }
+
+        .doctor-description {
+            font-size: 0.95rem;
+        }
+
+        .doctor-section-title {
+            font-size: 1rem;
+        }
+    }
+
+    .doctor-section-title {
+        text-align: center;
+       
+        font-size: 2.5rem;
+        color: #2c3e50;
+        position: relative;
+    }
+
+    .doctor-section-title::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: #3498db;
+        margin: 10px auto;
+        border-radius: 2px;
+    }
+
+
+    /* working info */
+    .cards-container {
+        display: grid;
+        transform: translatey(-120px);
+        justify-items: center;
+        gap: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        width: 100%;
+        padding: 20px; 
+        z-index: 200; 
+        position: relative;
+    }
+
+    .card {
+        background: white;
+        border-radius: 12px;
+        padding: 40px 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-header {
+        margin-bottom: 25px;
+    }
+
+    .card-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 8px;
+        line-height: 1.3;
+    }
+
+    .card-subtitle {
+        font-size: 1.1rem;
+        color: #3498db;
+        font-weight: 600;
+    }
+
+    .card-content {
+        flex-grow: 1;
+        margin-bottom: 30px;
+    }
+
+    .card-description {
+        color: #555;
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 25px;
+    }
+
+    .schedule-list {
+        list-style: none;
+        margin-top: 15px;
+    }
+
+    .schedule-item {
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
+        color: #0a0a0a;
+        font-size: 1rem;
+    }
+
+    .schedule-item:last-child {
+        border-bottom: none;
+    }
+
+    .phone-number {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin: 15px 0;
+    }
+
+    .btn {
+        display: inline-block;
+        background: #3498db;
+        color: white;
+        padding: 14px 30px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        width: fit-content;
+    }
+
+    .btn:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+    }
+
+    .emergency-card {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        color: white;
+    }
+
+    .emergency-card .card-title,
+    .emergency-card .card-subtitle,
+    .emergency-card .phone-number,
+    .emergency-card .card-description {
+        color: white;
+    }
+
+    .emergency-card .btn {
+        background: white;
+        color: #e74c3c;
+    }
+
+    .emergency-card .btn:hover {
+        background: #f8f9fa;
+    }
+
+
+    @media (max-width: 480px) {
+      
+
+        .card {
+            padding: 25px 20px;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+        }
+
+        .phone-number {
+            font-size: 1.4rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px 25px;
+        }
+    }
+</style>
+
+<!-- Swiper Container -->
+  {% if messages %}
+      {% for message in messages %}
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+              icon: '{{ message.tags }}',
+              title: '{{ message|escapejs }}',
+              toast: true,
+              position: 'top-center',
+              showConfirmButton: false,
+              timer: 5000,
+              timerProgressBar: true,
+              background: '#fff',
+              iconColor: '{% if message.tags == "success" %}#28a745{% elif message.tags == "error" %}#dc3545{% elif message.tags == "warning" %}#ffc107{% else %}#17a2b8{% endif %}'
+            });
+          });
+        </script>
+      {% endfor %}
+    {% endif %}
+<div class="swiper man mySwiper mb-4">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide slide1">
+            <div class="overlay">
+                <h1>Welcome to Mathias Hospital</h1>
+                <p>Your health and comfort are our top priorities. Get the care you deserve with ease.</p>
+                <a href=" " class="btn btn-warning">Let's Start</a>
+            </div>
+
+        </div>
+        <div class="swiper-slide slide2">
+            <div class="overlay">
+                <h1>Report Any Health Concern</h1> 
+                <p>Let our team know about any medical issues or symptoms you’re experiencing for quick assistance.</p>
+                <a href="" class="btn btn-primary">Let's Start</a> 
+            </div>  
+        </div>    
+        <div class="swiper-slide slide3"> 
+            <div class="overlay"> 
+                <h1 class="fw-bolder" style="font-size: 4rem; color: #223a66;">Your most trusted <br/>health partner</h1>
+                <p>Stay informed about your academic performance.</p>
+                <a href="" class="btn btn-primary">Let's Start</a>
+            </div>
+        </div>
+    </div>
+     
+    <div class="swiper-pagination"></div>
+</div>
+
+<!-- working info -->
+<div class="cards-container">
+    <!-- 24 Hours Service Card -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">24 Hours Service</h2>
+            <p class="card-subtitle">Online Appointment</p>
+        </div>
+        <div class="card-content">
+            <p class="card-description">
+                Get ALI time support for emergency. We have introduced the principle of family medicine.
+            </p>  
+            <a href="{% url 'appointment' %}" class="btn">MAKE A APPOINMENT</a>
+        </div>
+    </div>
+
+    <!-- Timing Schedule Card -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Timing schedule</h2>
+            <p class="card-subtitle">Working Hours</p>
+        </div>
+        <div class="card-content">
+            <ul class="schedule-list">
+                <li class="schedule-item">Sun - Wed : 8:00 - 17:00</li>
+                <li class="schedule-item">Thu - Fri : 9:00 - 17:00</li>
+                <li class="schedule-item">Sat - sun : 10:00 - 17:00</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Emergency Cases Card -->
+    <div class="card emergency-card">
+        <div class="card-header">
+            <h2 class="card-title">Emergency Cases</h2>
+            <p class="card-subtitle">1-800-700-6200</p>
+        </div>
+        <div class="card-content">
+            <div class="phone-number">1-800-700-6200</div>
+            <p class="card-description">
+                Get ALI time support for emergency. We have introduced the principle of family medicine. Get Conneted
+                with us for any urgency.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- SERVICES -->
+<section class="about mb-4" style="overflow-x: hidden;" data-aos="zoom-in" data-aos-delay="50" data-aos-duration="1000">
+    <div class="about-content">
+        <h1><span>Medical</span> Services</h1>
+        <p>If you need a doctor for to consectetur Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <ul>
+            <li>Managing your Family Health care.</li>
+            <li>Cancer Researchers Honored</li>
+            <li>Orthopedic Health keeps you Active</li>
+        </ul>
+        <div class="about-icons">
+            <div class="icon-box">🫁</div>
+            <div class="icon-box">🚑</div>
+            <div class="icon-box">🦷</div>
+            <div class="icon-box red">+</div>
+        </div>
+    </div>
+    <div class="about-image mb-4">
+        <img src="{% static 'images/d1.jpg' %}" alt="" style="border-radius: 30px;">
+    </div>
+</section>
+
+<div class="text-center fs-2 fw-bold mt-3" data-aos="fade-down" data-aos-delay="50" data-aos-duration="1000">What we
+    offer you</div>
+    
+<section class="services">
+    <div class="card" data-aos="fade-up" data-aos-delay="50" data-aos-duration="1000">
+        <img src="{% static 'images/service-1.jpg' %}" alt="{{service.Title}}" class="img-fluid">
+        <div class="card-body"> 
+            <h5 class="card-title" style="color:#223a66 ;">Child care
+            </h5>
+            <p class="card-text">Saepe nulla praesentium eaque omnis perferendis a doloremque.
+            </p>
+        </div>
+    </div> 
+    <div class="card"  data-aos="fade-up" data-aos-delay="50" data-aos-duration="1000">
+        <img src="{% static 'images/service-1.jpg' %}" alt="{{service.Title}}" class="img-fluid">
+        <div class="card-body">
+            <h5 class="card-title" style="color:#223a66 ;">Child care
+            </h5>
+            <p class="card-text">Saepe nulla praesentium eaque omnis perferendis a doloremque.
+            </p>
+        </div>
+    </div>
+    <div class="card"  data-aos="fade-up" data-aos-delay="50" data-aos-duration="1000">
+        <img src="{% static 'images/service-1.jpg' %}" alt="{{service.Title}}" class="img-fluid">
+        <div class="card-body">
+            <h5 class="card-title" style="color:#223a66 ;">Child care
+            </h5>
+            <p class="card-text">Saepe nulla praesentium eaque omnis perferendis a doloremque.
+            </p>
+        </div>
+    </div>
+
+
+
+    <!-- <div class="service-image">
+        <img src="{% static 'images/d2.jpg' %}" alt="">
+    </div> -->
+
+</section>
+
+
+<!-- Meet our special team  -->
+<section class="doctors mb-5">
+  <h1 class="doctor-section-title mt-4 text-center mb-4 fw-bold text-primary">
+    👨‍⚕️ Meet Our Special Doctors
+  </h1>
+
+  <!-- Swiper Container -->
+  <div class="swiper mySwipers container">
+    <div class="swiper-wrapper">
+      {% for doctor in doctors %}
+      <div class="swiper-slide">
+        <div class="doctor-card text-center shadow-sm rounded-4 p-3 bg-white">
+          <img src="{{ doctor.image.url }}" alt="{{ doctor.name }}" class="doctor-img mb-3">
+          <h5 class="fw-bold text-dark">{{ doctor.name }}</h5>
+          <p class="text-muted mb-1">{{ doctor.position }}</p>
+          <p class="small text-secondary">{{ doctor.description|truncatewords:20 }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Swiper Navigation -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+
+    <!-- Swiper Pagination -->
+    <div class="swiper-pagination mt-3"></div>
+  </div>
+</section>
+
+<!-- special doctor css -->
+<style>
+.doctor-section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #00796b;
+}
+
+.doctor-card {
+  background-color: #fff;
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.doctor-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #00bcd4;
+  margin: auto;
+}
+
+.swiper {
+  width: 100%;
+  padding: 30px 0;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #00bcd4;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #00bcd4;
+}
+</style>
+
+<!-- special doctors js -->
+<script>
+  var swiper = new Swiper(".mySwipers", {
+    slidesPerView: 3,
+    spaceBetween: 30,
+    loop: true,
+    grabCursor: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 10,
+      },
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+  });
+
+
+</script>
+
+
+<!-- who we are section -->
+<section class="who_we_are container mt-5 text-center" style="overflow-x: hidden;">
+    <div class="text-side" data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000">
+        <div class="mb-4 fs-4 fw-bold">Who we are</div>
+        <h2 class="w-90 mb-4">Choose The Best Care For Yourself</h2>
+
+        <div class=" ">
+            It is more crucial than ever to preserve excellent health in the fast-paced world of today. From physical
+            fitness to mental well-being, a holistic approach to health can lead to a fulfilling and vibrant life.
+            Together, let’s embrace a lifestyle that promotes balance, vitality, and a lasting sense of wellness.
+        </div>
+    </div>
+
+    <div class="video-side" data-aos="fade-left" data-aos-delay="50" data-aos-duration="1000">
+        <video class="video" width="500" controls autoplay="true" style="border-radius: 20px;">
+            <source src="{% static 'images/docvideo.mp4' %}" type="video/mp4">
+        </video>
+    </div>
+</section>
+
+
+<!-- Testimonial section -->
+<section class="testimonials mt-5 mb-5">
+  <h1 class="testimonial-title text-center mb-4 fw-bold text-success">
+    💬 What Our Patients Say
+  </h1>
+  
+  <div class="swiper testimonialSwiper container">
+    <div class="swiper-wrapper">
+      {% for t in testimonials %}
+      {% if t.approve %}
+      <div class="swiper-slide">
+        <div class="testimonial-card shadow-sm p-4 bg-white rounded-4 text-center">
+          <img src="{{ t.pic.url }}" alt="{{ t.name }}" class="testimonial-img mb-3">
+          <p class="testimonial-message text-secondary fst-italic">
+            "{{ t.message|truncatewords:30 }}"
+          </p>
+          <div class="stars mb-2">
+            ⭐⭐⭐⭐⭐
+          </div>
+          <h6 class="fw-bold text-dark mb-0">{{ t.name }}</h6>
+          <small class="text-muted">Satisfied Patient</small>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Swiper pagination -->
+    <div class="swiper-pagination mt-4"></div>
+  </div>
+</section>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var swiper = new Swiper(".mySwiper", {
+            effect: "fade",
+            loop: true,
+            speed: 2000,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+
+        }
+
+        )
+        // const doctors = document.querySelectorAll('.doctor');
+        // let index = 0;
+
+        // setInterval(() => {
+        //     doctors[index].classList.remove('active');
+        //     index = (index + 1) % doctors.length;
+        //     doctors[index].classList.add('active');
+        // }, 3000);
+
+    });
+
+    // testimonail
+    const swiper = new Swiper('.testimonial-slider', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+            delay: 3000, 
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+        },
+    });  
+    // DOM elements
+    const carouselTrack = document.querySelector('.carousel-track');
+    const carouselNav = document.querySelector('.carousel-nav');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    const slides = document.querySelectorAll('.carousel-slide');
+
+
+</script>
+
+<script>
+ 
+ var testimonialSwiper = new Swiper(".testimonialSwiper", {
+    effect: "fade",
+    grabCursor: true,
+    loop: true,
+    autoplay: {
+      delay: 3500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+
+{% block title %}Today Appointments{% endblock %}
+
+{% block content %}
+<h3 class="text-center mb-4">All Today Appoinments</h3>
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">All Appointments</h6>
+                <span class="badge bg-primary">{{ appointments.count }} total</span>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Patient</th>
+                                <th>Contact</th>
+                                <th style="white-space: nowrap;">Date</th> 
+                                <th>Complaint</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for appointment in appointments %}
+                            <tr>
+                                <td> 
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-circle bg-primary text-white me-3">
+                                            {{ appointment.full_name|first|upper }}
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">{{ appointment.full_name }}</h6>
+                                            <small class="text-muted">ID:{{ appointment.refrence}}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div class="text-primary">{{ appointment.phone_number }}</div>
+                                        <small class="text-muted">{{ appointment.email }}</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold" style="white-space: nowrap;">{{ appointment.date|date:"M d, Y"}}</div>
+                                    <small class="text-muted" style="white-space: nowrap;">{{ appointment.time|time:" g:iA" }}</small>
+                                </td>
+                                <td>
+                                    <div class="complaint-text">
+                                        {{ appointment.Complain|truncatewords:8 }}
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if appointment.Status == "complete" %}
+                                    <span class="badge bg-success">Completed</span>
+                                    {% elif appointment.Status == "pending" %}
+                                    <span class="badge bg-warning">Pending</span>
+                                    {% elif appointment.Status == "approved" %}
+                                    <span class="badge bg-info">Approved</span>
+                                    {% elif appointment.Status == "cancelled" %}
+                                    <span class="badge bg-danger">Cancelled</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                                            data-bs-target="#detailModal{{ appointment.id }}">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        {% if appointment.Status == "pending" or appointment.Status == "cancelled"%}
+                                        <button class="btn btn-sm btn-outline-success approve-btn"
+                                            onclick="confirmApproval({{ appointment.id }}, '{{ appointment.full_name|escapejs }}')">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center py-4">
+                                    <div class="empty-state">
+                                        <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                                        <h5>No Appointments Found</h5>
+                                        <p class="text-muted">There are no appointments scheduled yet.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <!-- {% if appointments.has_other_pages %}
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if appointments.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ appointments.previous_page_number }}">Previous</a>
+                        </li>
+                        {% endif %}
+
+                        {% for num in appointments.paginator.page_range %}
+                        <li class="page-item {% if appointments.number == num %}active{% endif %}">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                        {% endfor %}
+
+                        {% if appointments.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ appointments.next_page_number }}">Next</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %} -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Detail Modals (Moved outside main container to fix z-index issues) -->
+{% for appointment in appointments %}
+<div class="modal fade" id="detailModal{{ appointment.id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Appointment Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Patient Information</h6>
+                        <p><strong>Name:</strong> {{ appointment.full_name }}</p>
+                        <p><strong>Phone:</strong> {{ appointment.phone_number }}</p>
+                        <p><strong>Email:</strong> {{ appointment.email }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Appointment Details</h6>
+                        <p><strong>Date:</strong> {{ appointment.date|date:"F d, Y" }}</p>
+                        <p><strong>Reference:</strong>{{ appointment.refrence }}</p>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h6>Patient Complaint</h6>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                {{ appointment.Complain }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h6>Doctor Approved</h6>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                {% if appointment.Doctor %}
+                                {{ appointment.Doctor.username }}
+                                {% else %}
+                                Not assigned yet
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Print Details</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+ <style>
+    .avatar-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .complaint-text {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .timeline-badge {
+        width: 60px;
+        height: 30px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .action-card {
+        cursor: pointer;
+        transition: transform 0.2s;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .action-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .empty-state {
+        padding: 2rem 0;
+    }
+
+    .border-left-primary {
+        border-left: 4px solid #4e73df !important;
+    }
+
+    .border-left-success {
+        border-left: 4px solid #1cc88a !important;
+    }
+
+    .border-left-info {
+        border-left: 4px solid #36b9cc !important;
+    }
+
+    .border-left-warning {
+        border-left: 4px solid #f6c23e !important;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+
+    .table th {
+        border-top: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+    }
+
+    /* Fix modal z-index issues */
+    .modal {
+        z-index: 1060 !important;
+    }
+
+    .modal-backdrop {
+        z-index: 1050 !important;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Filter functionality
+        const dateFilter = document.getElementById('dateFilter');
+        const statusFilter = document.getElementById('statusFilter');
+
+        // Set today as default for date filter
+        const today = new Date().toISOString().split('T')[0];
+        dateFilter.value = today;
+
+        // Add hover effects to table rows
+        const tableRows = document.querySelectorAll('tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseenter', function () {
+                this.style.backgroundColor = '#f8f9fa';
+            });
+            row.addEventListener('mouseleave', function () {
+                this.style.backgroundColor = '';
+            });
+        });
+    });
+
+    // Confirm approval with SweetAlert
+    function confirmApproval(appointmentId, patientName) {
+        Swal.fire({
+            title: 'Approve Appointment?',
+            html: `<p>Are you sure you want to approve the appointment for <strong>${patientName}</strong>?</p>
+                   <p class="text-success"><small>This will assign the patient to you.</small></p>`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, Approve Appointment',
+            cancelButtonText: 'No, Cancel',
+            reverseButtons: true,
+            backdrop: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Show loading state
+                Swal.fire({
+                    title: 'Approving...',
+                    text: 'Please wait while we approve the appointment',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                // Submit the approval form
+                setTimeout(() => {
+                    document.getElementById('appointmentIdInput').value = appointmentId;
+                    const form = document.getElementById('approveForm');
+                    form.action = `/approve_appointment/${appointmentId}/`;
+                    form.submit();
+                }, 1000);
+            }
+        });
+    }
+</script>
+{% endblock %}

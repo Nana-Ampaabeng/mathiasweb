@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+
+{%block content %}
+ <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Job Applications</h6>
+                    <span class="badge bg-primary">{{ applications.count }} applications</span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="applicationsTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Applicant</th>
+                                    <th>Sector</th>
+                                    <th>Contact</th>
+                                    <th>Application Date</th>
+                                    <th>About Us</th>
+                                    <th>Documents</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody> 
+                                
+                                {% for application in appointment %}
+                                <tr class="application-row" data-sector="{{ application.sector }}">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-circle bg-primary text-white me-3">
+                                                {{ application.first_name|first|upper }}{{ application.last_name|first|upper }}
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0">{{ application.first_name }} {{ application.last_name }}</h6>
+                                                <small class="text-muted">Applied: {{ application.date|date:"M d, Y" }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge {% if application.sector == 'Nurse' %}bg-success{% else %}bg-info{% endif %}">
+                                            {{ application.sector }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <div class="text-primary">{{ application.email }}</div>
+                                            <small class="text-muted">
+                                                <a href="{{ application.url }}" target="_blank" class="text-decoration-none">
+                                                    <i class="fas fa-link me-1"></i>Portfolio
+                                                </a>
+                                            </small>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="fw-bold">{{ application.date|date:"M d, Y" }}</div>
+                                        <small class="text-muted">{{ application.date|time:"g:i A" }}</small>
+                                    </td>
+                                    <td>
+                                        <div class="about-text" data-bs-toggle="tooltip" title="{{ application.about_us }}">
+                                            {{ application.about_us|truncatewords:8 }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group-vertical btn-group-sm">
+                                            {% if application.resume %}
+                                            <a href="{{ application.resume.url }}" class="btn btn-outline-primary btn-download" download>
+                                                <i class="fas fa-file-pdf me-1"></i>Resume
+                                            </a>
+                                            {% endif %}
+                                            {% if application.cover_letter %}
+                                            <a href="{{ application.cover_letter.url }}" class="btn btn-outline-success btn-download mt-1" download>
+                                                <i class="fas fa-file-word me-1"></i>Cover Letter
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-outline-primary view-application" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#detailModal{{ application.id }}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+<!--                                             
+                                            <button class="btn btn-sm btn-outline-success quick-action" 
+                                                    data-application-id="{{ application.id }}"
+                                                    data-action="shortlist">
+                                                <i class="fas fa-star"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger quick-action" 
+                                                    data-application-id="{{ application.id }}"
+                                                    data-action="reject">
+                                                <i class="fas fa-times"></i>
+                                            </button> -->
+
+                                        </div> 
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="7" class="text-center py-4">
+                                        <div class="empty-state">
+                                            <i class="fas fa-briefcase fa-3x text-muted mb-3"></i>
+                                            <h5>No Applications Found</h5>
+                                            <p class="text-muted">There are no job applications yet.</p>
+                                        </div>
+                                    </td>
+                                </tr> 
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    {% if applications.has_other_pages %}
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            {% if applications.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ applications.previous_page_number }}">Previous</a>
+                            </li>
+                            {% endif %}
+
+                            {% for num in applications.paginator.page_range %}
+                            <li class="page-item {% if applications.number == num %}active{% endif %}">
+                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                            {% endfor %}
+
+                            {% if applications.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ applications.next_page_number }}">Next</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{%endblock%}

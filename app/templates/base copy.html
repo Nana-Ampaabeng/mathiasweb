@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     <title>{% block title %} mch yeji {% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -22,8 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="description"
-        content="mathias catholic hospital yeji, yeji hospital, hospital, bono-east hospital, ghana hospital, pru east hospital, mch, mch yeji">
+    <meta name="description" content="mathias catholic hospital yeji, yeji hospital, hospital, bono-east hospital, ghana hospital, pru east hospital, mch, mch yeji">
     <meta name="author" content="mch.org">
 
     <title>Mathias Catholic Hospital</title>
@@ -39,8 +38,7 @@
     <link rel="stylesheet" href="{% static 'plugins/slick-carousel/slick/slick-theme.css'%}">
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="{% static 'css/2/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/2/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <style>
         :root {
@@ -71,112 +69,206 @@
         body {
             overflow-x: hidden;
         }
+
+
+        /* footer */
+        /* .footer {
+            background: #00bcd4;
+            color: #ffffff;
+            padding: 50px 20px 20px;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer h2,
+        .footer h3 {
+            color: white;
+        }
+
+        .footer p,
+        .footer a {
+            color: #dddddd;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer a {
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #f9d342;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li {
+            margin: 8px 0;
+        }
+
+        .footer-social .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social .social-icons a {
+            font-size: 20px;
+            color: #ffffff;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .footer-social .social-icons a:hover {
+            color: #f9d342;
+            transform: scale(1.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #444;
+            font-size: 13px;
+        } */
     </style>
 
 </head>
-<style>
-    .navbar-brand h2 {
-        color: #00c6a9;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 1.5rem;
-        transform: translatex(-70px);
-    }
-
-    .navbar-brand h2 i {
-        font-size: 1.8rem;
-    }
-
-    @media (max-width:768px) {
-        .navbar-brand h2 {
-            font-size: 1.3rem;
-            transform: translatex(0px);
-        }
-
-        .header-top-bar {
-            display: none;
-        }
-    }
-</style>
-
 
 <body>
 
+    <!-- Navigation Bar -->
+    <!-- <nav class="navbar navbar-expand-lg mb-4 shadow-sm" style="background-color: #00bcd4;">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+      <img src="{% static 'images/anothergrr.jpeg' %}" alt="Logo" width="150" height="60" class="d-inline-block align-text-top rounded-circle">
+      <span class="ms-2 fw-bold text-white"> </span>
+    </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link text-white fw-semibold" href="{% url 'index' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white fw-semibold" href="{% url 'gallery' %}">About Us</a></li>
+        <li class="nav-item"><a class="nav-link text-white fw-semibold" href="{% url 'services' %}">Services</a></li>
+        <li class="nav-item"><a class="nav-link text-white fw-semibold" href="{% url 'appointment' %}">Appointment</a></li>
+        {% if request.user.is_authenticated and request.user.role.new_role == "Doctor" %}
+        <li class="nav-item"><a class="nav-link text-white fw-semibold" href="{% url 'doctor_page' %}">Doctor Page</a></li>
+        <li class="nav-item"><a class="nav-link text-white fw-semibold" href="{% url 'doctor_patients' %}">My Patients</a></li>
+        {%endif%}
+        <li class="nav-item"><a class="nav-link text-white fw-semibold" href="{% url 'testify' %}">Testimonials</a></li>
+      </ul>
+
+     
+       {%if request.user.is_authenticated%}
+       <div class="d-flex">
+        <a href="{% url 'logout' %}" class="nav-item btn-light text-dark fw-semibold px-3">logout</a>
+      </div>
+       {%else%} 
+      <div class="d-flex">
+        <a href="{% url 'login' %}" class="nav-item btn-light text-dark fw-semibold px-3">Login</a>
+      </div>
+      {%endif%}
+    </div>
+  </div>
+</nav> -->
+
     <header>
         <div class="header-top-bar">
-            <div class="">
-                <div class="d-flex justify-content-around">
-                    <div class="">
-                        <div><i class="fas fa-clock"></i> Mon-Sun: 9:00-17:00</div>
-                           
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <ul class="top-bar-info list-inline-item pl-0 mb-0">
+                            <li class="list-inline-item"><a href="mailto:support@gmail.com"><i
+                                        class="icofont-support-faq mr-2"></i>mathias@gmail.com</a></li>
+                            <li class="list-inline-item"><i class="icofont-location-pin mr-2"></i>Address KWB124,Yeji
+                            </li>
+                        </ul>
                     </div>
-                    <div class="">
-                        <div><i class="fas fa-envelope"></i> mathias.hospital@yahoo.com</div>
-                    </div>
-
-                    <div class="">
+                    <div class="col-lg-6">
                         <div class="text-lg-right top-right-bar mt-2 mt-lg-0">
                             <a href="tel:+23-345-67890">
-                                <div class="text-white"><i class="fas fa-phone"></i> +233 814 9627</div>
+                                <span>Call Now : </span>
+                                <span class="h4">+233 596878044</span>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <nav class="navbar navbar-expand-lg navigation" id="navbar">
             <div class="container">
-                <a class="navbar-brand" href="{% url 'home' %}">
-                    <h2><i class="fas fa-heartbeat"></i> </h2>
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'images/grrmathias.jpeg' %}" alt="" class="img-fluid" style="width: 100px; ">
                 </a>
 
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain"
                     aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="icofont-navigation-menu"></span>
                 </button>
-                
+
                 <div class="collapse navbar-collapse" id="navbarmain">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                            <a class="nav-link" href="{% url 'index' %}">Home</a>
                         </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'gallery' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'ourteam' %}">Our Teams</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'departments_page' %}">Department</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'testify' %}">Testify</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'jobs' %}">Jobs</a></li>
 
+
+                        {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="dropdown02" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">About us <i
-                                    class="icofont-thin-down"></i></a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdown02">
-                                <li><a class="dropdown-item" href="{% url 'our-team' %}">Our Team</a></li>
-                                <li><a class="dropdown-item" href="{% url 'about' %}">Gallery</a></li>
-                                <li><a class="dropdown-item" href="{% url 'department' %}"> Department</a></li>
-
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="icofont-user"></i> {{ user.username }} <i class="icofont-thin-down"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown06">
+                                {% if request.user.role.new_role == "Doctor" %}
+                                <li><a class="dropdown-item" href="{% url 'doctor_patients' %}">My Patients</a></li>
+                                <li><a class="dropdown-item" href="{% url 'doctor_page' %}">Doctors Dashboard</a></li>
+                                {% else %}
+                                {% endif %}
+                                {% if request.user.role.new_role == "HR" %}
+                                <!-- <li><a class="dropdown-item" href="{% url 'doctor_patients' %}">My Patients</a></li> -->
+                                <li><a class="dropdown-item" href="{% url 'hr_dashboard' %}">HR's Dashboard</a></li>
+                                {% else %}
+                                {% endif %}
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                             </ul>
                         </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="blog-sidebar.html" id="dropdown05"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog <i
-                                    class="icofont-thin-down"></i></a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                                <li><a class="dropdown-item" href="blog-sidebar.html">Blog with Sidebar</a></li>
-
-                                <li><a class="dropdown-item" href="blog-single.html">Blog Single</a></li>
-                            </ul>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'apply' %}">Apply</a></li>
-
-                        <li class="nav-item"><a class="nav-link btn" style="background-color: #00c6a9;"
-                                href="{% url 'appointment' %}">Book
-                                appointment </a></li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary" href="{% url 'appointment' %}">Book Appointment</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-
 
     {% if messages %}
     {% for message in messages %}
@@ -254,7 +346,7 @@
 
 
     <!-- footer Start -->
-    <!-- <footer class="footer section gray-bg">
+    <footer class="footer section gray-bg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mr-auto col-sm-6">
@@ -346,8 +438,7 @@
                                 {%csrf_token%}
                                 <input type="text" class="form-control" name="subscribemails"
                                     placeholder="Your Email address" required>
-                                <button type="submit" class="btn btn-main-2 btn-round-full"><i
-                                        class="fas fa-paper-plane"></i></button>
+                                <button type="submit" class="btn btn-main-2 btn-round-full"><i class="fas fa-paper-plane"></i></button>
                             </form>
                         </div>
                     </div>
@@ -362,64 +453,8 @@
                 </div>
             </div>
         </div>
-    </footer> -->
-
-    <footer class="footer">
-        <div class="footer-container">
-
-            <!-- Column 1: Contact -->
-            <div class="footer-column">
-                <h3>Get in Touch</h3>
-                <p><i><i class="fa-solid fa-envelope"></i></i> mathias.hospital@yahoo.com</p>
-                <p><i><i class="fa-solid fa-phone"></i>Tel:</i> +233 814 9627</p>
-                <p><i><i class="fa-solid fa-location-dot"></i>GPS:</i>BP 0004-1497</p>
-                <p><i><i class="fa-solid fa-location-dot"></i></i> AE 41, Bishop Kwadwo Owusu Road, Yeji, Ghana</p>
-
-            </div>
-
-            <!-- Column 2: Quick Links -->
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li>About us</li>
-                    <li>Blog</li>
-                    <li>Contact us</li>
-                    <li>FAQ</li>
-                    <li>Insurance</li>
-                </ul>
-            </div>
-
-            <!-- Column 3: Our Services -->
-            <div class="footer-column">
-                <h3>Our Services</h3>
-                <ul>
-                    <li>Work Injuries</li>
-                    <li>Sport Injuries</li>
-                    <li>Cold Laser Therapy</li>
-                    <li>Massage Therapy</li>
-                    <li>Physiotherapy</li>
-                    <li>Chiropractic Therapy</li>
-                </ul>
-            </div>
-
-            <!-- Column 4: Enquiry Form -->
-            <div class="footer-column footer-form">
-                <h3>Enquiry Form</h3>
-                <form>
-                    <input type="text" placeholder="Name" required />
-                    <input type="text" placeholder="Phone" required />
-                    <textarea rows="3" placeholder="Message"></textarea>
-                    <button type="submit">SUBMIT</button>
-                </form>
-            </div>
-
-        </div>
-
-        <!-- Social Media -->
-        <div class="footer-social">
-            Copyright © 2025. Mathias Catholic Hospital- Yeji |
-        </div>
     </footer>
+
 
 
     <!-- 
@@ -481,9 +516,24 @@
             });
         });
 
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
 
+            // Save theme preference to localStorage
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
 
-
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
 
         // Automatically update the current year in the copyright notice
     </script>
@@ -495,5 +545,7 @@
     <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
 
 </body>
+
+
 
 </html>

@@ -15,133 +15,181 @@
     <!-- style -->
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <link rel="stylesheet" href="{%static 'css/style.css'%}">
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
 </head>
-
 <body>
-    <section class="top-bar-section">
+    <style>
+        .ap_btn{
+            background-color: #00c6a9;
+            padding: 10px; 
+            text-decoration: underline;
+        }
+    </style>
+
+   <section class="top-bar-section">
         <div class="container">
             <div class="top-bar">
                 <div><i class="fas fa-clock"></i> Mon-Sun: 9:00-17:00</div>
                 <div><i class="fas fa-envelope"></i> mathias.hospital@yahoo.com</div>
                 <div><i class="fas fa-phone"></i> +233 814 9627</div>
-
             </div>
         </div>
     </section>
+
     <section class="navbar-section" id="mainHeader">
         <div class="container">
             <div class="navbar">
-                <h2><i class="fas fa-heartbeat"></i> Mathias Catholic Hospital</h2>
+                <h2><i class="fas fa-heartbeat"></i>  </h2>
                 <div class="menu-toggle"><i class="fas fa-bars"></i></div>
                 <nav>
-                    <a href="#home">Home</a>
-                    <a href="#service">Services</a>
-                    <a href="#about">About</a>
-                    <a href="#blog">Blogs</a>
-                    <a href="#gallery">Gallery</a>
-                    <a href="#team">Team</a>
-                    <a href="#contact">Contact</a>
-                    <!-- <a href="#Appointment">Appointment</a> -->
+                    <a href=" {% url 'home' %}">Home</a>
+                    <a href="{% url 'services' %}">Services</a>
+                    
+                    <div class="dropdown">
+                        <a href="#about">About</a>
+                        <div class="dropdown-content">
+                            <a href="{% url 'our-team' %}"><i class="fas fa-landmark"></i> Our Team</a>
+                            <a href="{% url 'about' %}"><i class="fas fa-bullseye"></i> Gallery </a>
+                            <a href="{% url 'department' %}"><i class="fas fa-hand-holding-heart"></i> Department</a>
+                            <a href="#leadership"><i class="fas fa-users"></i> Leadership</a>
+                            <a href="#accreditation"><i class="fas fa-award"></i> Accreditation</a>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown">
+                        <a href="#blog">Blogs </a>
+                        <div class="dropdown-content">
+                            <a href="#health-tips"><i class="fas fa-lightbulb"></i> Health Tips</a>
+                            <a href="#medical-news"><i class="fas fa-newspaper"></i> Medical News</a>
+                            <a href="#patient-stories"><i class="fas fa-book-open"></i> Patient Stories</a>
+                            <a href="#research"><i class="fas fa-flask"></i> Research Updates</a>
+                            <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
+                        </div>
+                    </div>
+                    
+                    <a href="{% url 'apply' %}">apply</a>
+                     
+                    <a href="{% url 'appointment' %}" class="ap_btn">Book appoinment </a>
                 </nav>
             </div>
         </div>
     </section>
 
 
-    <!-- <header class="hero" id="home">
-        <h5 data-aos="fade-up">WELCOME TO </h5>
-        <h2 data-aos="fade-up">MATHIAS CATHOLIC HOSPITAL</h2>
-        &nbsp;&nbsp;&nbsp;
 
-        <h4 data-aos="fade-down-right" data-aos-anchor-placement="bottom-bottom">We provide excellent primary healthcare
-            that exceeds the expectations of
-            our clients by a highly motivated, committed and healthy workforce through
-            efficient management and governance systems</h4>
-        <br>&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        <button data-aos="fade-down"><a href="{% url 'about' %}">Read More</a></button>
-        <button data-aos="fade-down" class="outline-btn">Book Now</button>
-    </header> -->
-   
-   <div class="swiper mySwiper mb-4">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide slide1">
-            <div class="overlay">
-                <h1>Welcome Dear Students</h1>
-                <p>Track your academic progress with ease.</p>
-                <a href=" " class="btn btn-primary">Let's Start</a>
-            </div>  
-        </div>     
-        <div class="swiper-slide slide2">
-            <div class="overlay">
-                <h1>Report any Issue</h1>
-                <p>Keep your records up to date.</p>
-                <a href=" " class="btn btn-warning">Let's Start</a>
-            </div> 
-        </div> 
-        <div class="swiper-slide slide3">
-            <div class="overlay">
-                <h1>View Assessment Results</h1>
-                <p>Stay informed about your academic performance.</p>
-                <a href="" class="btn btn-primary">Let's Start</a>
+    <!-- Swiper Hero Section -->
+    <header class="hero">
+        <div class="swiper heroSwiper">
+            <div class="swiper-wrapper">
+
+                <!-- SLIDE 1 -->
+                <div class="swiper-slide hero-slide" style="background-image: url({% static 'images/banner.jpg' %});">
+                    <div class="hero-content">
+                        <h1 class="slide-title">Welcome to Mathias Hospital</h1>
+                        <p class="slide-text">Your health and comfort are our top priorities. Get the care you deserve
+                            with ease.</p>
+                        <a href="#" class="hero-btn">Let's Start</a>
+                    </div>
+                </div>
+
+                <!-- SLIDE 2 -->
+                <div class="swiper-slide hero-slide" style="background-image: url({% static 'images/banner.jpg' %});">
+                    <div class="hero-content">
+                        <h1 class="slide-title">Quality Healthcare Services</h1>
+                        <p class="slide-text">We provide top-notch medical care with compassion and dedication.</p>
+                        <a href="#" class="hero-btn">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- SLIDE 3 -->
+                <div class="swiper-slide hero-slide" style="background-image: url({% static 'images/banner.jpg' %});">
+                    <div class="hero-content">
+                        <h1 class="slide-title">Your Health, Our Mission</h1>
+                        <p class="slide-text">Experience excellent primary healthcare beyond expectations.</p>
+                        <a href="#" class="hero-btn">Book Now</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Pagination Dots -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </header>
+
+
+
+    <!-- services -->
+    <section class="section testimonial-3 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 text-center">
+                    <div class="section-title">
+                        <h2>Our Services</h2>
+                        <div class="divider mx-auto my-4"></div>
+                        <p>Our team of highly qualified medical professionals is dedicated to providing the best
+                            healthcare services with compassion and expertise.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper mySwipers container mt-5">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <div class="doctor-card text-center shadow-sm rounded-4 p-3 bg-white">
+                            <img src="{% static 'images/banner.jpg'%}" alt="{{ doctor.name }}"
+                                class="doctor-img mb-3 rounded-circle"
+                                style="width: 120px; height: 120px; object-fit: cover;">
+                            <h5 class="fw-bold text-dark">Salim</h5>
+                            <p class="text-muted mb-1">Developer</p>
+                            <p class="small text-secondary">this is for testing</p>
+                        </div>
+                    </div>  
+                    <div class="swiper-slide">
+                        <div class="doctor-card text-center shadow-sm rounded-4 p-3 bg-white">
+                            <img src="{% static 'images/banner.jpg'%}" alt="{{ doctor.name }}"
+                                class="doctor-img mb-3 rounded-circle"
+                                style="width: 120px; height: 120px; object-fit: cover;">
+                            <h5 class="fw-bold text-dark"> Emma </h5>
+                            <p class="text-muted mb-1"> Networker</p>
+                            <p class="small text-secondary"> This is for testing</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="doctor-card text-center shadow-sm rounded-4 p-3 bg-white">
+                            <img src="{% static 'images/banner.jpg'%}" alt="{{ doctor.name }}"
+                                class="doctor-img mb-3 rounded-circle"
+                                style="width: 120px; height: 120px; object-fit: cover;">
+                            <h5 class="fw-bold text-dark">{{ doctor.name }}</h5>
+                            <p class="text-muted mb-1">{{ doctor.position }}</p>
+                            <p class="small text-secondary">{{ doctor.description|truncatewords:20 }}</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="doctor-card text-center shadow-sm rounded-4 p-3 bg-white">
+                            <img src="{% static 'images/banner.jpg'%}" alt="{{ doctor.name }}"
+                                class="doctor-img mb-3 rounded-circle"
+                                style="width: 120px; height: 120px; object-fit: cover;">
+                            <h5 class="fw-bold text-dark">{{ doctor.name }}</h5>
+                            <p class="text-muted mb-1">{{ doctor.position }}</p>
+                            <p class="small text-secondary">{{ doctor.description|truncatewords:20 }}</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Swiper Navigation -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+
+                <!-- Swiper Pagination -->
+                <div class="swiper-pagination mt-3"></div>
             </div>
         </div>
-    </div>
-    <!-- Pagination & Navigation -->
-    <div class="swiper-pagination"></div>
-</div>
-
-    <section class="section services" id="service">
-        <h2 data-aos="fade-right">Our Services</h2>
-        <p class="sub-heading" data-aos="fade-right">Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. </p>
-        <div class="flex-row">
-
-            <div class="card" data-aos="fade-up"><i class="fas fa-stethoscope"></i>
-                <h4>Antenatal Care</h4>
-                <p>Regular health checkups by experts</p>
-            </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-briefcase-medical"></i>
-
-                <h4>Physiotherapy</h4>
-                <p>24/7 emergency support</p>
-            </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-heartbeat"></i>
-                <h4>Urology</h4>
-                <p>Advanced heart care unit</p>
-            </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="200"><i class="fa-solid fa-truck-medical"></i>
-                <h4>Laboratory Services</h4>
-                <p>Advanced heart care unit</p>
-            </div>
-
-
-            <div class="card" data-aos="fade-up"><i class="fas fa-stethoscope"></i>
-                <h4>Cervical Screening</h4>
-                <p>Regular health checkups by experts</p>
-            </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-briefcase-medical"></i>
-
-                <h4> ECG</h4>
-
-                <p>24/7 emergency support</p>
-            </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-heartbeat"></i>
-                <h4>Theater</h4>
-                <p>Advanced heart care unit</p>
-            </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="200"><i class="fa-solid fa-truck-medical"></i>
-                <h4> Ear, Nose and Throat (ENT)</h4>
-                <p>Advanced heart care unit</p>
-            </div>
-
-
-        </div>
-        <a href="#" class="read-more-btn">READ MORE</a>
     </section>
+
     <section class="section why-choose-us" id="about">
         <h2 data-aos="fade-right">Why Choose Us ?</h2>
 
@@ -188,7 +236,7 @@
 
             <!-- Center Image -->
             <div class="center-image" data-aos="fade-down">
-                <img src="{% static 'images/why-choose.png'%}" alt="Doctor" />
+                <img src="{% static 'images/why-choose.png' %}" alt="Doctor" />
             </div>
 
             <!-- Right Column -->
@@ -256,28 +304,13 @@
 
     <section class="section section-flex" id="blog">
         <!-- Left Column -->
-        <div class="left-column" data-aos="fade-right">
-            <h2>Latest News & Events</h2>
-            <h3>MCH ENDOWMENT FUND</h3>
-            <P>As part of the 30th Anniversary Celebration, MCH has launched an Endowment Fund to implement the new
-                Hospital Master Plan.</P>
-            <div class="articles">
-                <div class="article">
-                    <img src="images/mch1.jpg" alt="Doctor Image 1">
-                    <h3> Construction of a Maternity Block</h3>
-                    <small>Nov 17, 2025 | Admin</small>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-                    </p>
-                </div>
-                <div class="article">
-                    <img src="images/ban-2.jpg" alt="Doctor Image 2">
-                    <h3>Lorem ipsum dolor sit amet,</h3>
-                    <small>April 19, 2017 | Dr. Jon Doe</small>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-                    </p>
-                </div>
-            </div>
-            <a href="#" class="read-more-btn">READ MORE</a>
+        <!-- Dynamic Display Section -->
+
+        <div class="left-column dept-display" id="deptDisplay">
+            <img id="deptImage" src="{% static 'images/team-1.jpg' %}" alt="">
+            <h3 id="deptTitle">Accident & Emergency </h3>
+            <p id="deptText"> The Accident and Emergency Department at Mathias Catholic Hospital is a critical facility providing
+                    emergency medical care to patients in need. Comprising several key units such as:</p>
         </div>
 
         <!-- Right Column -->
@@ -323,10 +356,7 @@
                     care tailored to the unique needs of children. Our services encompass a wide range of specialties,
                     including.
                 </div>
-            </di
-            
-            
-            v>
+            </div>
 
             <div class="accordion-item">
                 <div class="accordion-title">
@@ -338,6 +368,33 @@
                     diagnostic imaging services, including:
                 </div>
             </div>
+
+        </div>
+
+        <!-- event -->
+
+        <div class="" data-aos="fade-right">
+            <h2>Latest News & Events</h2>
+            <h3>MCH ENDOWMENT FUND</h3>
+            <P>As part of the 30th Anniversary Celebration, MCH has launched an Endowment Fund to implement the new
+                Hospital Master Plan.</P>
+            <div class="articles">
+                <div class="article">
+                    <img src="{% static 'images/mch1.jpg' %}" alt="Doctor Image 1">
+                    <h3> Construction of a Maternity Block</h3>
+                    <small>Nov 17, 2025 | Admin</small>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+                    </p>
+                </div>
+                <div class="article">
+                    <img src="{% static 'images/ban-2.jpg' %}" alt="Doctor Image 2">
+                    <h3>Lorem ipsum dolor sit amet,</h3>
+                    <small>April 19, 2017 | Dr. Jon Doe</small>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+                    </p>
+                </div>
+            </div>
+            <a href="#" class="read-more-btn">READ MORE</a>
         </div>
     </section>
 
@@ -431,6 +488,8 @@
         </div>
     </section>
     <button id="backToTop"><i class="fa-solid fa-arrow-up"></i></button>
+    
+    
     <footer class="footer">
         <div class="footer-container">
 
@@ -481,57 +540,6 @@
             </div>
 
         </div>
-        <section class=" container testimonials mt-5 mb-5">
-            <div class="swiper testimonialSwiper container">
-                <div class="swiper-wrapper">
-                  
-                   
-                    <div class="swiper-slide">
-                        <div class="testimonial-card shadow-sm p-4 bg-white rounded-4 text-center">
-                            <img src="{% static 'images/ban-1.jpg'%}" alt="img" class="testimonial-img mb-3">
-                            <p class="testimonial-message text-secondary fst-italic">
-                                "{{ t.message|truncatewords:30 }}"
-                            </p>
-                            <div class="stars mb-2">
-                                ⭐⭐⭐⭐⭐
-                            </div>
-                            <h6 class="fw-bold text-dark mb-0">Kofi</h6>
-                            <small class="text-muted">kofi</small>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testimonial-card shadow-sm p-4 bg-white rounded-4 text-center">
-                            <img src="{% static 'images/ban-1.jpg'%}" alt="{{ t.name }}" class="testimonial-img mb-3">
-                            <p class="testimonial-message text-secondary fst-italic">
-                                "{{ t.message|truncatewords:30 }}"
-                            </p>
-                            <div class="stars mb-2">
-                                ⭐⭐⭐⭐⭐
-                            </div>
-                            <h6 class="fw-bold text-dark mb-0">{{ t.name }}</h6>
-                            <small class="text-muted">Satisfied Patient</small>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testimonial-card shadow-sm p-4 bg-white rounded-4 text-center">
-                            <img src="{% static 'images/ban-2.jpg'%}" alt="{{ t.name }}" class="testimonial-img mb-3">
-                            <p class="testimonial-message text-secondary fst-italic">
-                                "{{ t.message|truncatewords:30 }}"
-                            </p>
-                            <div class="stars mb-2">
-                                ⭐⭐⭐⭐⭐
-                            </div>
-                            <h6 class="fw-bold text-dark mb-0">Ama</h6>
-                            <small class="text-muted">Satisfied Patient</small>
-                        </div>
-                    </div>
-                    
-                </div>
-
-                <!-- Swiper pagination -->
-                <div class="swiper-pagination mt-4"></div>
-            </div>
-        </section>
 
         <!-- Social Media -->
         <div class="footer-social">
@@ -539,52 +547,122 @@
         </div>
     </footer>
 
+
+    <!-- scroll animation js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!--custom js -->
+    <script src="{% static 'js/custom.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <script>
-        var testimonialSwiper = new Swiper(".testimonialSwiper", {
-            effect: "fade",
-            grabCursor: true,
+        // Initialize the new testimonial swiper
+        var mySwiper = new Swiper(".mySwipers", {
+            slidesPerView: 3,
+            spaceBetween: 30,
             loop: true,
+            grabCursor: true,
             autoplay: {
-                delay: 3500,
+                delay: 1200,
                 disableOnInteraction: false,
             },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                }
+            }
+        });
+
+
+        // hero swiper 
+        var swiper = new Swiper(".heroSwiper", {
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            effect: "fade",
+            fadeEffect: { crossFade: true },
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true,
             },
         });
     </script>
+ <script>
 
-    <!-- scroll animation js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <!--custom js -->
-    <script src="{% static 'js/custom.js'%}"></script>
-</body>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var swiper = new Swiper(".mySwiper", {
-            effect: "fade",
-            loop: true,
-            speed: 2000,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-
+    const deptData = {
+        "Accident & Emergency": {
+            img: "{% static 'images/team-1.jpg' %}",
+            title: "Accident & Emergency",
+            text: "The Accident and Emergency Department provides urgent medical treatment to critically ill or injured patients. It operates 24/7 with trained personnel."
+        },
+        "Obstetrics & Gynaecology": {
+            img:  "{% static 'images/team-2.jpg' %}",
+            title: "Obstetrics & Gynaecology",
+            text: "The O&G Department offers prenatal care, delivery services, gynecological surgeries, and reproductive health services by experienced specialists."
+        },
+        "Child Health": {
+            img:"{% static 'images/team-3.jpg' %}",
+            title: "Child Health",
+            text: "The Child Health Department provides comprehensive care for children, including immunization, outpatient services, and neonatal care."
+        },
+        "Imaging": {
+            img: "{% static 'images/team-4.jpg' %}",
+            title: "Imaging",
+            text: "The Imaging Department provides X-ray, ultrasound, CT scan, and other diagnostic imaging services using modern equipment."
         }
-     
-    );
-    let Currentyear=document.getElementById("currentYear")
-    var Year= new Date()
-    Currentyear.innerText=Year.getFullYear()
-   
-    });
+    };
 
+    const items = document.querySelectorAll('.accordion-title');
+    const displayBox = document.getElementById("deptDisplay");
+    const displayImage = document.getElementById("deptImage");
+    const displayTitle = document.getElementById("deptTitle");
+    const displayText = document.getElementById("deptText");
+
+    items.forEach(item => {
+        item.addEventListener("click", () => {
+            const deptName = item.innerText.trim();
+
+            if (deptData[deptName]) {
+
+                // Reset animation
+                displayBox.classList.remove("show");
+                void displayBox.offsetWidth; // Forces reflow
+
+                // Update content
+                displayImage.src = deptData[deptName].img;
+                displayTitle.innerText = deptData[deptName].title;
+                displayText.innerText = deptData[deptName].text;
+
+                // Start animation
+                setTimeout(() => {
+                    displayBox.classList.add("show");
+                }, 50);
+            }
+        });
+    });
 </script>
+
+
+
+
+</body>
 
 </html>

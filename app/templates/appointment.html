@@ -1,0 +1,457 @@
+{% extends 'base.html' %}
+{%load static%}
+{%block title%} appointment{%endblock%}
+{%block content%}
+<style>
+    :root {
+        --primary: #1a76d2;
+        --secondary: #0d47a1;
+        --accent: #ff5252;
+        --light: #f5f9ff;
+        --dark: #1a237e;
+    }
+
+
+
+    .appointment-container {
+        border-radius: 15px;
+        overflow: hidden;
+        margin: 2rem 0;
+    }
+
+    .appointment-info {
+        padding: 3rem 2rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .appointment-form {
+        padding: 3rem 2.5rem;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--dark);
+    }
+
+    .section-subtitle {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 2.5rem;
+        max-width: 90%;
+    }
+
+    .info-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+
+    .info-text {
+        margin-bottom: 2rem;
+        font-size: 1.05rem;
+        opacity: 0.9;
+    }
+
+    .emergency-number {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 1.5rem 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .emergency-number i {
+        margin-right: 15px;
+        font-size: 2.2rem;
+        color: #ffcc00;
+    }
+
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #444;
+    }
+
+    .form-control,
+    .form-select {
+        padding: 12px 15px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem rgba(26, 118, 210, 0.25);
+    }
+
+    .btn-appointment {
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        color: white;
+        border: none;
+        padding: 14px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        width: 100%;
+        transition: all 0.3s;
+        margin-top: 1rem;
+    }
+
+    .btn-appointment:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 7px 15px rgba(26, 118, 210, 0.4);
+    }
+
+    .info-image {
+        width: 100%;
+        border-radius: 10px;
+        margin-top: 2rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-box {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-size: 1.3rem;
+    }
+    @media (max-width:968px) {
+        .line{
+            display: none;
+        }
+    }
+    @media (max-width: 768px) {
+        .appointment-info {
+            padding: 2rem 1.5rem;
+        }
+
+        .appointment-form {
+            padding: 2rem 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+        }
+    }
+
+    .alert {
+        border-radius: 10px;
+        border: none;
+    }
+
+    .alert-success {
+        background: linear-gradient(135deg, #d4edda, #c3e6cb);
+        color: #155724;
+    }
+
+    .alert-danger {
+        background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+        color: #721c24;
+    }
+
+    .is-invalid {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+
+    .is-valid {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    }
+
+    .text-danger {
+        font-size: 0.875rem;
+        margin-top: -1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* HERO */
+    .hero-service {
+        background-image:linear-gradient( rgba(31, 30, 30, 0.8)), url("{% static 'images/d1.jpg'%}");
+        width: 100%;
+        height: 60vh;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+    }
+
+   
+
+    .service-text {
+         position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgb(255, 255, 255);
+        text-align: center;
+        z-index: 2;
+    }
+</style>
+</head>
+
+<body>
+    <div class="hero-service">
+        <h3 class="service-text">Submit your Appointment with ease </h3>
+        <!-- <h3 class="service-text"> </h3> -->
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+
+            {% if messages %}
+      {% for message in messages %}
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+              icon: '{{ message.tags }}',
+              title: '{{ message|escapejs }}',
+              toast: true,
+              position: 'top-center',
+              showConfirmButton: false,
+              timer: 4000,
+              timerProgressBar: true,
+              background: '#fff',
+              iconColor: '{% if message.tags == "success" %}#28a745{% elif message.tags == "error" %}#dc3545{% elif message.tags == "warning" %}#ffc107{% else %}#17a2b8{% endif %}'
+            });
+          });
+        </script>
+      {% endfor %}
+    {% endif %} 
+        <!-- Appointment Section -->
+        <div class="appointment-container">
+            <div class="row g-0">
+                <!-- Left Side - Information -->
+                <div class="col-lg-6">
+                    <div class="appointment-info">
+                        <h2 class="info-title">Book an appointment</h2>
+                        <p class="info-text">
+                            Mollitia dicta commodi est recusandae iste, natus eum asperiores corrupti qui velit.
+                            Iste dolorum atque similique praesentium soluta.
+                        </p>
+
+                        <div class="emergency-number">
+                            <i class="fas fa-phone-volume"></i>
+                            +84 789 1256
+                        </div>
+
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div>
+                                <h5>Expert Doctors</h5>
+                                <p>Board-certified physicians with years of experience</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h5>24/7 Service</h5>
+                                <p>Round-the-clock medical care for emergencies</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-stethoscope"></i>
+                            </div>
+                            <div>
+                                <h5>Modern Equipment</h5>
+                                <p>State-of-the-art medical technology and facilities</p>
+                            </div>
+                        </div>
+
+                        <!-- Placeholder for your image -->
+                        <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                            alt="Medical Professional" class="info-image">
+                    </div>
+                </div>
+
+                <!-- Right Side - Form -->
+                <div class="col-lg-6">
+                    <div class="line" style="border-left:2px solid black; height: 150vh; transform: translatey(60px); position: absolute;"></div>
+                    <div class="appointment-form">
+                        <h2 class="section-title">Schedule Your Visit</h2>
+                        <p class="section-subtitle">Fill out the form below to book your appointment with our
+                            specialists.</p>
+
+                        <!-- Django Messages -->
+                       
+                        <form method="post" id="appointmentForm">
+                            {% csrf_token %}
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="{{ form.full_name.id_for_label }}" class="form-label">Full Name</label>
+                                    {{ form.full_name }}
+                                    {% if form.full_name.errors %}
+                                    <div class="text-danger">{{ form.full_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ form.phone_number.id_for_label }}" class="form-label">Phone
+                                        Number</label>
+                                    {{ form.phone_number }}
+                                    {% if form.phone_number.errors %}
+                                    <div class="text-danger">{{ form.phone_number.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                               
+                                <div class="col-md-6">
+                                    <label for="{{ form.date.id_for_label }}" class="form-label">Appointment
+                                        Date</label>
+                                    {{ form.date }}
+                                    {% if form.date.errors %}
+                                    <div class="text-danger">{{ form.date.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ form.Gender.id_for_label }}" class="form-label">Gender</label>
+                                    {{ form.Gender }}
+                                    {% if form.Gender.errors %}
+                                    <div class="text-danger">{{ form.Gender.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                          
+                            <div class="mb-3">
+                                <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                <div class="text-danger">{{ form.email.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="{{ form.Complain.id_for_label }}" class="form-label">Your Message /
+                                    Symptoms</label>
+                                {{ form.Complain }}
+                                {% if form.Complain.errors %}
+                                <div class="text-danger">{{ form.Complain.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <button type="submit" class="btn btn-appointment">
+                                <i class="fas fa-calendar-check me-2"></i> MAKE APPOINTMENT
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Info Section -->
+        <div class="row mt-5">
+            <div class="col-md-4 text-center mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="text-primary mb-3">
+                            <i class="fas fa-ambulance fa-2x"></i>
+                        </div>
+                        <h5>Emergency Care</h5>
+                        <p>Immediate medical attention for critical conditions with our emergency response team.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="text-primary mb-3">
+                            <i class="fas fa-pills fa-2x"></i>
+                        </div>
+                        <h5>Pharmacy</h5>
+                        <p>Full-service pharmacy providing prescribed medications and health products.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="text-primary mb-3">
+                            <i class="fas fa-heartbeat fa-2x"></i>
+                        </div>
+                        <h5>Health Checkup</h5>
+                        <p>Comprehensive health assessments and preventive care screenings.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        // Form validation and field highlighting
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('appointmentForm');
+            const inputs = form.querySelectorAll('input, textarea, select');
+
+            // Set minimum date to today
+            const dateInput = document.getElementById('id_date');
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.setAttribute('min', today);
+            }
+
+            // Real-time validation
+            inputs.forEach(input => {
+                input.addEventListener('blur', function () {
+                    if (this.value.trim() !== '') {
+                        this.classList.add('is-valid');
+                        this.classList.remove('is-invalid');
+                    } else {
+                        this.classList.add('is-invalid');
+                        this.classList.remove('is-valid');
+                    }
+                });
+
+                input.addEventListener('input', function () {
+                    if (this.value.trim() !== '') {
+                        this.classList.add('is-valid');
+                        this.classList.remove('is-invalid');
+                    }
+                });
+            });
+
+            // Phone number formatting
+            const phoneInput = document.getElementById('id_phone_number');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 10) {
+                        value = value.slice(0, 15);
+                    }
+                    e.target.value = value;
+                });
+            }
+        });
+    </script>
+    {%endblock%}

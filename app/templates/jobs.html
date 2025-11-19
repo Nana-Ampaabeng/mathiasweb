@@ -1,0 +1,315 @@
+{% extends 'base.html'%}
+
+{%block content%}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    :root {
+        --primary-color: #2c3e50;
+        --accent-color: #3498db;
+        --light-bg: #f8f9fa;
+        --border-color: #e0e0e0;
+    }
+
+    body {
+        background-color: var(--light-bg);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+        line-height: 1.6;
+    }
+
+
+    .application-container {
+        max-width: 900px;
+        margin: 2rem auto;
+        overflow: hidden;
+        padding: 30px;
+    }
+
+    .application-header {
+        color: white;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .application-header h1 {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .application-header p {
+        opacity: 0.9;
+        margin-bottom: 0;
+    }
+
+    .application-form {
+        padding: 2rem;
+        border: 1px solid rgb(175, 175, 175);
+
+    }
+
+    .form-section {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    
+    .section-title i {
+        margin-right: 10px;
+        color: var(--accent-color);
+    }
+
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: #555;
+    }
+
+    .required::after {
+        content: " *";
+        color: #e74c3c;
+    }
+
+    .form-control,
+    .form-select {
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        transition: all 0.3s;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+
+    .file-upload-area {
+        border: 2px dashed var(--border-color);
+        border-radius: 6px;
+        padding: 1.5rem;
+        text-align: center;
+        background-color: #fafafa;
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+
+    .file-upload-area:hover {
+        border-color: var(--accent-color);
+        background-color: #f0f7ff;
+    }
+
+    .file-upload-area i {
+        font-size: 2rem;
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .file-info {
+        font-size: 0.875rem;
+        color: #777;
+        margin-top: 0.5rem;
+    }
+
+
+
+    .submit-btn {
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        padding: 0.75rem 2rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 6px;
+        transition: all 0.3s;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-note {
+        font-size: 0.875rem;
+        color: #777;
+        margin-top: 0.5rem;
+    }
+
+    @media (max-width: 576px) {
+        .application-container {
+            margin: 1rem;
+            padding: 70px 0;
+        }
+
+        .application-header,
+        .application-form {
+            padding: 1.5rem;
+            border: 1px solid rgb(175, 175, 175);
+
+        }
+    }
+
+    .job-info {
+        margin-bottom: 40px;
+    }
+</style>
+ 
+<div class="application-container">
+   
+    <form method="post" enctype="multipart/form-data" class="application-form ">
+        <div class="application-header">
+            <h1>Apply for your dream job</h 1>
+        </div>
+        {% csrf_token %}
+
+        <!-- Apply For Section -->
+        <div class="form-section ">
+            <div class="section-title d-flex justify-content-center">
+                <i class="fas fa-briefcase"></i>
+                Apply For
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.sector.id_for_label }}" class="form-label required">Sector</label>
+                {{ form.sector }}
+            </div>
+        </div>
+
+        <!-- Personal Information Section -->
+        <div class="form-section">
+            <div class="section-title">
+                <i class="fas fa-user"></i>
+                Personal Information
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="{{ form.first_name.id_for_label }}" class="form-label required">First Name</label>
+                    {{ form.first_name }}
+                </div>     
+                <div class="col-md-6 mb-3">
+                    <label for="{{ form.last_name.id_for_label }}" class="form-label required">Last Name</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Information Section -->
+        <div class="form-section">
+            <div class="section-title">
+                <i class="fas fa-envelope"></i>
+                Contact Information
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.email.id_for_label }}" class="form-label required">Email Address</label>
+                {{ form.email }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.url.id_for_label }}" class="form-label">Online Profile (LinkedIn, etc.)</label>
+                {{ form.url }}
+                <div class="form-note">For eg. LinkedIn, Twitter, Facebook</div>
+            </div>
+        </div>
+
+        <!-- Resume/CV Section -->
+        <div class="form-section">
+            <div class="section-title">
+                <i class="fas fa-file-alt"></i>
+                Resume/CV
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.resume.id_for_label }}" class="form-label required">Upload Resume/CV</label>
+                <div class="file-upload-area"
+                    onclick="document.getElementById('{{ form.resume.id_for_label }}').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <div>Choose file</div>
+                    <div class="file-info">All files allowed. Maximum size 10MB.</div>
+                </div>
+                {{ form.resume }}
+            </div>
+        </div>
+
+        <!-- Cover Letter Section -->
+        <div class="form-section">
+            <div class="section-title">
+                <i class="fas fa-pen"></i>
+                Cover Letter
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.cover_letter.id_for_label }}" class="form-label">Upload Cover Letter</label>
+                <div class="file-upload-area"
+                    onclick="document.getElementById('{{ form.cover_letter.id_for_label }}').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <div>Choose file</div>
+                    <div class="file-info">All files allowed. Maximum size 10MB.</div>
+                </div>
+                {{ form.cover_letter }}
+            </div>
+        </div>
+
+        <!-- About Us Section -->
+        <div class="form-section">
+            <div class="section-title">
+                <i class="fas fa-info-circle"></i>
+                How'd you hear about St. Mary's Hospital
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.about_us.id_for_label }}" class="form-label">Tell us how you heard about us</label>
+                {{ form.about_us }}
+            </div>
+        </div>
+
+
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn">
+            <i class="fas fa-paper-plane me-2"></i>APPLY NOW
+        </button>
+    </form>
+</div>
+
+<script>
+    // Handle file input display
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+
+        fileInputs.forEach(input => {
+            input.style.display = 'none';
+
+            input.addEventListener('change', function () {
+                const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+                const uploadArea = this.previousElementSibling;
+                const fileInfo = uploadArea.querySelector('.file-info');
+
+                if (fileInfo) {
+                    fileInfo.textContent = fileName;
+                }
+            });
+        });
+    });
+</script> 
+ 
+
+
+{%endblock%}
