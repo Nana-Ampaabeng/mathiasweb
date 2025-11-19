@@ -109,7 +109,7 @@
                 <div class="d-flex justify-content-around">
                     <div class="">
                         <div><i class="fas fa-clock"></i> Mon-Sun: 9:00-17:00</div>
-                           
+
                     </div>
                     <div class="">
                         <div><i class="fas fa-envelope"></i> mathias.hospital@yahoo.com</div>
@@ -136,23 +136,22 @@
                     aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="icofont-navigation-menu"></span>
                 </button>
-                
+
                 <div class="collapse navbar-collapse" id="navbarmain">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'home' %}">Home</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'our-team' %}">Our Team</a></li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="dropdown02" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">About us <i
                                     class="icofont-thin-down"></i></a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdown02">
-                                <li><a class="dropdown-item" href="{% url 'our-team' %}">Our Team</a></li>
-                                <li><a class="dropdown-item" href="{% url 'about' %}">Gallery</a></li>
-                                <li><a class="dropdown-item" href="{% url 'department' %}"> Department</a></li>
 
+                            <ul class="dropdown-menu" aria-labelledby="dropdown02">
+                                <li><a class="dropdown-item" href="{% url 'department' %}"> Department</a></li>
                             </ul>
                         </li>
 
@@ -161,8 +160,8 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog <i
                                     class="icofont-thin-down"></i></a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown05">
+                                <li><a class="dropdown-item" href="{% url 'about' %}">Gallery</a></li>
                                 <li><a class="dropdown-item" href="blog-sidebar.html">Blog with Sidebar</a></li>
-
                                 <li><a class="dropdown-item" href="blog-single.html">Blog Single</a></li>
                             </ul>
                         </li>

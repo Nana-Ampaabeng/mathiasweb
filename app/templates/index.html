@@ -18,16 +18,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
 </head>
+
 <body>
     <style>
-        .ap_btn{
+        .ap_btn {
             background-color: #00c6a9;
-            padding: 10px; 
+            padding: 10px;
             text-decoration: underline;
         }
     </style>
 
-   <section class="top-bar-section">
+    <section class="top-bar-section">
         <div class="container">
             <div class="top-bar">
                 <div><i class="fas fa-clock"></i> Mon-Sun: 9:00-17:00</div>
@@ -40,36 +41,35 @@
     <section class="navbar-section" id="mainHeader">
         <div class="container">
             <div class="navbar">
-                <h2><i class="fas fa-heartbeat"></i>  </h2>
+                <h2><i class="fas fa-heartbeat"></i> </h2>
                 <div class="menu-toggle"><i class="fas fa-bars"></i></div>
                 <nav>
                     <a href=" {% url 'home' %}">Home</a>
                     <a href="{% url 'services' %}">Services</a>
-                    
+                    <a href="{% url 'our-team' %}"> Our Team</a>
+
                     <div class="dropdown">
-                        <a href="#about">About</a>
+                        <a href="#about">About</a> 
                         <div class="dropdown-content">
-                            <a href="{% url 'our-team' %}"><i class="fas fa-landmark"></i> Our Team</a>
-                            <a href="{% url 'about' %}"><i class="fas fa-bullseye"></i> Gallery </a>
                             <a href="{% url 'department' %}"><i class="fas fa-hand-holding-heart"></i> Department</a>
                             <a href="#leadership"><i class="fas fa-users"></i> Leadership</a>
                             <a href="#accreditation"><i class="fas fa-award"></i> Accreditation</a>
                         </div>
                     </div>
-                    
+
                     <div class="dropdown">
                         <a href="#blog">Blogs </a>
                         <div class="dropdown-content">
-                            <a href="#health-tips"><i class="fas fa-lightbulb"></i> Health Tips</a>
+                            <a href="{% url 'about' %}"><i class="fas fa-bullseye"></i> Gallery </a>
                             <a href="#medical-news"><i class="fas fa-newspaper"></i> Medical News</a>
                             <a href="#patient-stories"><i class="fas fa-book-open"></i> Patient Stories</a>
                             <a href="#research"><i class="fas fa-flask"></i> Research Updates</a>
                             <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
                         </div>
                     </div>
-                    
+
                     <a href="{% url 'apply' %}">apply</a>
-                     
+
                     <a href="{% url 'appointment' %}" class="ap_btn">Book appoinment </a>
                 </nav>
             </div>
@@ -84,10 +84,11 @@
             <div class="swiper-wrapper">
 
                 <!-- SLIDE 1 -->
-                <div class="swiper-slide hero-slide" style="background-image: url({% static 'images/banner.jpg' %});">
+                <div class="swiper-slide hero-slide" style="background-image: url({% static 'images/mch1.jpg' %}); background-size:cover; ">
                     <div class="hero-content">
-                        <h1 class="slide-title">Welcome to Mathias Hospital</h1>
-                        <p class="slide-text">Your health and comfort are our top priorities. Get the care you deserve
+                        <h2 data-aos="fade-up" class="slide-title">Welcome to Mathias Hospital</h2>
+                        <p data-aos="fade-down-right" data-aos-anchor-placement="bottom-bottom" class="slide-text">Your
+                            health and comfort are our top priorities. Get the care you deserve
                             with ease.</p>
                         <a href="#" class="hero-btn">Let's Start</a>
                     </div>
@@ -96,7 +97,7 @@
                 <!-- SLIDE 2 -->
                 <div class="swiper-slide hero-slide" style="background-image: url({% static 'images/banner.jpg' %});">
                     <div class="hero-content">
-                        <h1 class="slide-title">Quality Healthcare Services</h1>
+                        <h2 class="slide-title">Quality Healthcare Services</h2>
                         <p class="slide-text">We provide top-notch medical care with compassion and dedication.</p>
                         <a href="#" class="hero-btn">Learn More</a>
                     </div>
@@ -105,7 +106,7 @@
                 <!-- SLIDE 3 -->
                 <div class="swiper-slide hero-slide" style="background-image: url({% static 'images/banner.jpg' %});">
                     <div class="hero-content">
-                        <h1 class="slide-title">Your Health, Our Mission</h1>
+                        <h2 class="slide-title">Your Health, Our Mission</h2>
                         <p class="slide-text">Experience excellent primary healthcare beyond expectations.</p>
                         <a href="#" class="hero-btn">Book Now</a>
                     </div>
@@ -146,7 +147,7 @@
                             <p class="text-muted mb-1">Developer</p>
                             <p class="small text-secondary">this is for testing</p>
                         </div>
-                    </div>  
+                    </div>
                     <div class="swiper-slide">
                         <div class="doctor-card text-center shadow-sm rounded-4 p-3 bg-white">
                             <img src="{% static 'images/banner.jpg'%}" alt="{{ doctor.name }}"
@@ -308,9 +309,6 @@
 
         <div class="left-column dept-display" id="deptDisplay">
             <img id="deptImage" src="{% static 'images/team-1.jpg' %}" alt="">
-            <h3 id="deptTitle">Accident & Emergency </h3>
-            <p id="deptText"> The Accident and Emergency Department at Mathias Catholic Hospital is a critical facility providing
-                    emergency medical care to patients in need. Comprising several key units such as:</p>
         </div>
 
         <!-- Right Column -->
@@ -488,8 +486,8 @@
         </div>
     </section>
     <button id="backToTop"><i class="fa-solid fa-arrow-up"></i></button>
-    
-    
+
+
     <footer class="footer">
         <div class="footer-container">
 
@@ -605,60 +603,55 @@
             },
         });
     </script>
- <script>
+    <script>
 
-    const deptData = {
-        "Accident & Emergency": {
-            img: "{% static 'images/team-1.jpg' %}",
-            title: "Accident & Emergency",
-            text: "The Accident and Emergency Department provides urgent medical treatment to critically ill or injured patients. It operates 24/7 with trained personnel."
-        },
-        "Obstetrics & Gynaecology": {
-            img:  "{% static 'images/team-2.jpg' %}",
-            title: "Obstetrics & Gynaecology",
-            text: "The O&G Department offers prenatal care, delivery services, gynecological surgeries, and reproductive health services by experienced specialists."
-        },
-        "Child Health": {
-            img:"{% static 'images/team-3.jpg' %}",
-            title: "Child Health",
-            text: "The Child Health Department provides comprehensive care for children, including immunization, outpatient services, and neonatal care."
-        },
-        "Imaging": {
-            img: "{% static 'images/team-4.jpg' %}",
-            title: "Imaging",
-            text: "The Imaging Department provides X-ray, ultrasound, CT scan, and other diagnostic imaging services using modern equipment."
-        }
-    };
+        const deptData = {
+            "Accident & Emergency": {
+                img: "{% static 'images/team-1.jpg' %}",
 
-    const items = document.querySelectorAll('.accordion-title');
-    const displayBox = document.getElementById("deptDisplay");
-    const displayImage = document.getElementById("deptImage");
-    const displayTitle = document.getElementById("deptTitle");
-    const displayText = document.getElementById("deptText");
+            },
+            "Obstetrics & Gynaecology": {
+                img: "{% static 'images/team-2.jpg' %}",
+                title: "Obstetrics & Gynaecology",
+                text: "The O&G Department offers prenatal care, delivery services, gynecological surgeries, and reproductive health services by experienced specialists."
+            },
+            "Child Health": {
+                img: "{% static 'images/team-3.jpg' %}",
 
-    items.forEach(item => {
-        item.addEventListener("click", () => {
-            const deptName = item.innerText.trim();
+            },
+            "Imaging": {
+                img: "{% static 'images/team-4.jpg' %}",
 
-            if (deptData[deptName]) {
-
-                // Reset animation
-                displayBox.classList.remove("show");
-                void displayBox.offsetWidth; // Forces reflow
-
-                // Update content
-                displayImage.src = deptData[deptName].img;
-                displayTitle.innerText = deptData[deptName].title;
-                displayText.innerText = deptData[deptName].text;
-
-                // Start animation
-                setTimeout(() => {
-                    displayBox.classList.add("show");
-                }, 50);
             }
+        };
+
+        const items = document.querySelectorAll('.accordion-title');
+        const displayBox = document.getElementById("deptDisplay");
+        const displayImage = document.getElementById("deptImage");
+        const displayTitle = document.getElementById("deptTitle");
+        const displayText = document.getElementById("deptText");
+
+        items.forEach(item => {
+            item.addEventListener("click", () => {
+                const deptName = item.innerText.trim();
+
+                if (deptData[deptName]) {
+
+                    // Reset animation
+                    displayBox.classList.remove("show");
+                    void displayBox.offsetWidth; // Forces reflow
+
+                    // Update content
+                    displayImage.src = deptData[deptName].img;
+
+                    // Start animation
+                    setTimeout(() => {
+                        displayBox.classList.add("show");
+                    }, 50);
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 
 

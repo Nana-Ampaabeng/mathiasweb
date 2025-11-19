@@ -270,6 +270,8 @@ body::-webkit-scrollbar-thumb:hover {
     background-size: cover;
     background-position: center;
     position: relative;
+    background-size: cover;
+
 }
 
 /* Overlay */
@@ -294,14 +296,17 @@ body::-webkit-scrollbar-thumb:hover {
     text-align: center;
     max-width: 700px;
     z-index: 2;
+    font-family: 'Open Sans', sans-serif;
+
 }
+
 
 /* Title from TOP */
 .slide-title {
     font-size: 3rem;
     font-weight: 700;
     opacity: 0;
-    transform: translateY(-90px);
+    transform: translateY(90px);
     transition: all 0.8s ease;
 }
 
@@ -309,7 +314,7 @@ body::-webkit-scrollbar-thumb:hover {
 /* Paragraph + Button from BOTTOM */
 .slide-text, .hero-btn {
     opacity: 0;
-    transform: translateY(90px);
+    transform: translateY(-90px);
     transition: all 0.8s ease;
 }
 
@@ -918,18 +923,16 @@ body::-webkit-scrollbar-thumb:hover {
 
 
 /* dynamic rendering  */
+
 .dept-display {
     margin-top: 25px;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    border-radius: 15px; 
     text-align: center;
-}
+} 
 
 .dept-display img {
-    width: 20%;
-    height: auto;
+    width: 80%;
+    height: 80vh;
     border-radius: 12px;
     margin-bottom: 15px;
 }
