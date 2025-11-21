@@ -1,0 +1,687 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% block extra_css %}
+<style>
+    /* Events & News Layout Styles */
+    .new-eve-container {
+        display: flex;
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Vertical divider */
+    .divider-column {
+        width: 1px;
+        background: linear-gradient(to bottom, transparent 0%, #00c6a9 15%, #00c6a9 85%, transparent 100%);
+        margin: 0 20px;
+        position: relative;
+    }
+
+    .divider-column::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 8px;
+        height: 8px;
+        background-color: #00c6a9;
+        border-radius: 50%;
+    }
+
+    .divider-column::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 8px;
+        height: 8px;
+        background-color: #00c6a9;
+        border-radius: 50%;
+    }
+
+    /* Content columns */
+    .news-column,
+    .events-column {
+        flex: 1;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: #111111;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: #00c6a9;
+        border-radius: 2px;
+    }
+
+    /* News Items */
+    .news-item {
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .news-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .news-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .news-placeholder {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, #59c3aa 0%, #44b4a7 100%);
+        border-radius: 8px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    .news-placeholder i {
+        font-size: 2.5rem;
+    }
+
+    .news-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #111111;
+    }
+
+    .news-date {
+        font-size: 0.9rem;
+        color: #707070;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .news-content {
+        color: #333;
+        line-height: 1.6;
+    }
+
+    /* Event Items */
+    .event-item {
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .event-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .event-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background-color: #00c6a9;
+    }
+
+    .event-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .event-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #111111;
+    }
+
+    .event-date {
+        display: inline-block;
+        background-color: #00c6a9;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 15px;
+    }
+
+    .event-description {
+        color: #333;
+        line-height: 1.6;
+    }
+
+    .no-content {
+        text-align: center;
+        padding: 40px 20px;
+        color: #707070;
+        background-color: #f1f1f1;
+        border-radius: 12px;
+    }
+
+    .no-content i {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        color: #ccc;
+    }
+
+    .no-content h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+
+    /* Page Header */
+    .page-header {
+        text-align: center;
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        color: #111111;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .page-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background-color: #00c6a9;
+        border-radius: 2px;
+    }
+
+    /* Read More Button */
+    .read-more-btn {
+        background-color: #00c6a9;
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        display: inline-block;
+        text-decoration: none;
+    }
+
+    .read-more-btn:hover {
+        background-color: #029882;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    /* Modal Enhancements */
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, #00c6a9 0%, #44b4a7 100%);
+        color: white;
+        border-bottom: none;
+        padding: 20px 25px;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .btn-close-white {
+        filter: invert(1);
+    }
+
+    .modal-body {
+        padding: 25px;
+    }
+
+    .detail-header {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f1f1f1;
+    }
+
+    .detail-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #111111;
+        margin-bottom: 10px;
+    }
+
+    .detail-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #707070;
+        font-size: 0.9rem;
+    }
+
+    .meta-item i {
+        color: #00c6a9;
+        width: 16px;
+    }
+
+    .detail-content {
+        line-height: 1.7;
+        color: #333;
+        font-size: 1rem;
+    }
+
+    .detail-section {
+        margin-bottom: 20px;
+    }
+
+    .section-label {
+        font-weight: 600;
+        color: #00c6a9;
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #f1f1f1;
+        padding: 15px 25px;
+    }
+
+    .btn-secondary {
+        background-color: #707070;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 6px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        background-color: #555;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .new-eve-container {
+            gap: 30px;
+        }
+
+        .divider-column {
+            margin: 0 15px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .new-eve-container {
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .divider-column {
+            width: 100%;
+            height: 1px;
+            margin: 40px 0;
+            background: linear-gradient(to right, transparent 0%, #00c6a9 15%, #00c6a9 85%, transparent 100%);
+        }
+
+        .divider-column::before {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .divider-column::after {
+            top: 50%;
+            left: auto;
+            right: 0;
+            transform: translateY(-50%);
+        }
+
+        .page-header {
+            font-size: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+        }
+
+        .detail-meta {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .detail-title {
+            font-size: 1.5rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .new-eve-container {
+            padding: 0 15px;
+        }
+
+        .page-header {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+        }
+
+        .news-item,
+        .event-item {
+            padding: 15px;
+        }
+
+        .event-image,
+        .news-placeholder {
+            height: 180px;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+        }
+    }
+</style>
+{% endblock %}
+
+<div class="page-header">All News & Events</div>
+
+<div class="new-eve-container">
+    <!-- News Column (Left Side) -->
+    <div class="news-column">
+        <div class="section-title">Latest News</div>
+
+        {% for n in news %}
+        <div class="news-item">
+            {% if n.image %}
+            <img src="{{ n.image.url }}" alt="{{ n.Title }}" class="news-image">
+            {% else %}
+            <div class="news-placeholder">
+                <i class="far fa-newspaper"></i>
+            </div>
+            {% endif %}
+            <h2 class="news-title">{{ n.Title }}</h2>
+            <small class="news-date">{{ n.news_date|date:"F j, Y" }} | {{n.poster}}</small>
+            <p class="news-content">{{ n.desc|truncatewords:30 }}</p>
+            <button class="read-more-btn" data-bs-toggle="modal" data-bs-target="#detailModals{{n.id}}">
+                Read More <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+        </div>
+        {% empty %}
+        <div class="no-content">
+            <i class="far fa-newspaper"></i>
+            <h3>No News Available</h3>
+            <p>Check back later for the latest updates</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Vertical Divider -->
+    <div class="divider-column"></div>
+
+    <!-- Events Column (Right Side) -->
+    <div class="events-column">
+        <div class="section-title">Upcoming Events</div>
+
+        {% for e in events %}
+        <div class="event-item">
+            {% if e.image %}
+            <img src="{{ e.image.url }}" alt="{{ e.Title }}" class="event-image">
+            {% else %}
+            <div class="news-placeholder">
+                <i class="far fa-calendar-alt"></i>
+            </div>
+            {% endif %}
+            <h2 class="event-title">{{ e.Title }}</h2>
+            <span class="event-date">{{ e.event_date|date:"F j, Y - g:i A" }} | {{e.poster}}</span>
+            <p class="event-description">{{ e.event_des}}</p>
+            <button class="read-more-btn" data-bs-toggle="modal" data-bs-target="#detailModal{{e.id}}">
+                Read More <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+        </div>
+        {% empty %}
+        <div class="no-content">
+            <i class="far fa-calendar-times"></i>
+            <h3>No Events Available</h3>
+            <p>Check back later for upcoming events</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Modal for Event Details -->
+{% for e in events %}
+<div class="modal fade" id="detailModal{{e.id}}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-calendar-alt me-2"></i>Event Details
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-header">
+                    <h2 class="detail-title">{{ e.Title }}</h2>
+                    <div class="detail-meta">
+                        <div class="meta-item">
+                            <i class="far fa-calendar"></i>
+                            <span><strong>Date & Time:</strong> {{ e.event_date|date:"F j, Y - g:i A" }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-user"></i>
+                            <span><strong>Posted by:</strong> {{ e.poster }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-tag"></i>
+                            <span><strong>Category:</strong> Event</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="section-label">
+                        <i class="fas fa-info-circle me-2"></i>Event Description
+                    </div>
+                    <div class="detail-content">
+                        {{ e.event_des|linebreaks }}
+                    </div>
+                </div>
+
+                {% if e.event_date %}
+                <div class="detail-section">
+                    <div class="section-label">
+                        <i class="fas fa-clock me-2"></i>Event Timing
+                    </div>
+                    <div class="detail-content">
+                        <div class="alert alert-info" style="background-color: #e8f6f3; border-color: #00c6a9; color: #027c6b;">
+                            <i class="fas fa-calendar-day me-2"></i>
+                            This event is scheduled for <strong>{{ e.event_date|date:"l, F j, Y" }}</strong> 
+                            at <strong>{{ e.event_date|date:"g:i A" }}</strong>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Modal for News Details -->
+{% for n in news %}
+<div class="modal fade" id="detailModals{{n.id}}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="far fa-newspaper me-2"></i>News Details
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-header">
+                    <h2 class="detail-title">{{ n.Title }}</h2>
+                    <div class="detail-meta">
+                        <div class="meta-item">
+                            <i class="far fa-calendar"></i>
+                            <span><strong>Published:</strong> {{ n.news_date|date:"F j, Y" }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-user"></i>
+                            <span><strong>Author:</strong> {{ n.poster }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-tag"></i>
+                            <span><strong>Category:</strong> News</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="section-label">
+                        <i class="fas fa-align-left me-2"></i>News Content
+                    </div>
+                    <div class="detail-content">
+                        {{ n.desc|linebreaks }}
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="section-label">
+                        <i class="fas fa-history me-2"></i>Publication Info
+                    </div>
+                    <div class="detail-content">
+                        <div class="alert alert-light" style="background-color: #f8f9fa;">
+                            <i class="fas fa-info-circle me-2"></i>
+                            This news article was published on <strong>{{ n.news_date|date:"F j, Y" }}</strong>
+                            {% if n.poster %}by <strong>{{ n.poster }}</strong>{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add animation to news and event items when they come into view
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe news and event items
+        document.querySelectorAll('.news-item, .event-item').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(item);
+        });
+
+        // Add hover effect to divider on desktop
+        const divider = document.querySelector('.divider-column');
+        if (window.innerWidth > 768) {
+            divider.addEventListener('mouseenter', function () {
+                this.style.width = '3px';
+                this.style.background = 'linear-gradient(to bottom, transparent 0%, #00c6a9 10%, #00c6a9 90%, transparent 100%)';
+            });
+
+            divider.addEventListener('mouseleave', function () {
+                this.style.width = '1px';
+                this.style.background = 'linear-gradient(to bottom, transparent 0%, #00c6a9 15%, #00c6a9 85%, transparent 100%)';
+            });
+        }
+
+        // Enhance modal animations
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('show.bs.modal', function () {
+                const modalContent = this.querySelector('.modal-content');
+                modalContent.style.transform = 'scale(0.9)';
+                modalContent.style.opacity = '0';
+            });
+
+            modal.addEventListener('shown.bs.modal', function () {
+                const modalContent = this.querySelector('.modal-content');
+                modalContent.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+                modalContent.style.transform = 'scale(1)';
+                modalContent.style.opacity = '1';
+            });
+        });
+    });
+</script>
+{% endblock %}

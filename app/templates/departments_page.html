@@ -51,7 +51,7 @@
             {% for dept in departments %}
               <li data-id="{{ dept.id }}">{{ dept.Name }}</li>
             {% empty %}
-              <li>No Departments Found</li>
+              <li>No Departments Found</li> 
             {% endfor %}
           </ul>
         </div>
@@ -80,6 +80,7 @@
         });
       });
     });
+
   </script>
  
 {%endblock%} 

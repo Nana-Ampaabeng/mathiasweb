@@ -15,6 +15,15 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_HOST_USER="codesimplified7@gmail.com" 
+EMAIL_HOST_PASSWORD="fkar ayhh gtec ybyw"
+EMAIL_USE_TLS=True
+EMAIL_PORT=587     
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  
+DEFAULT_FROM_EMAIL='Mathias Hospital<codesimplified7@gmail.com>'   
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -25,7 +34,7 @@ SECRET_KEY = 'django-insecure-e_vni0jrp%a&d42ja0rqq5eu*kb=%0#wxfm)u4%6gudjj7-%*g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,8 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'app',
-]
+] 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,13 +83,19 @@ WSGI_APPLICATION = 'web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME':'mathiasdb',
+        'USER': 'root',
+        'PASSWORD':'mysql*#',
+        'PORT':'3306',
+        'HOST':'localhost'
     }
 }
 
+AUTH_USER_MODEL="app.CustomUser" 
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -116,8 +132,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT= BASE_DIR / 'staticfiles'
+MEDIA_URL='media/'
+
+MEDIA_ROOT= BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
