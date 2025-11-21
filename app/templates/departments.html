@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
+
 <style>
     /* ====== Layout ====== */
     .departments {
@@ -129,6 +131,7 @@
     }
 </style>
 
+
 <div class="container departments mt-5">
     <!-- Mobile toggle button -->
     <div class="toggle-btn" id="toggleBtn">
@@ -200,7 +203,7 @@
     </div>
 </div>
 
-<!-- AJAX + Mobile toggle -->
+
 <script>
     // ===== AJAX =====
     document.querySelectorAll('.dept-link').forEach(link => {
