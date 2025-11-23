@@ -38,7 +38,8 @@ admin.site.register(AddRole)
 admin.site.register(Subscribes) 
 admin.site.register(Announcement) 
 admin.site.register(JobAlert) 
-
+admin.site.register(Gallary) 
+ 
 @admin.register(Appointement)
 class StaffImg(admin.ModelAdmin):
     list_display=('full_name','date','phone_number')  
@@ -67,5 +68,6 @@ class EventAdmin(admin.ModelAdmin):
 class NewsAdmin(admin.ModelAdmin):
     list_display=('Title','news_date','poster',)    
     
+
 
     

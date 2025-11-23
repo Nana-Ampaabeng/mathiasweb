@@ -128,7 +128,7 @@
 
         <nav class="navbar navbar-expand-lg navigation" id="navbar">
             <div class="container">
-                <a class="navbar-brand" href="{% url 'home' %}">
+                <a class=" navbar-brand" href="{% url 'home' %}">
                     <h2><i class="fas fa-heartbeat"></i> </h2>
                 </a>
 
@@ -147,23 +147,23 @@
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="dropdown02" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">About us <i
-                                    class="icofont-thin-down"></i></a>
+                                aria-haspopup="true" aria-expanded="false">About<i class="icofont-thin-down"></i></a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdown02">
-                                <li><a class="dropdown-item" href="{% url 'department' %}"> Department</a></li>
-                                <li><a class="dropdown-item" href="{% url 'events-news' %}"> Event & News</a></li>
+                                <li><a class="dropdown-item" href="{% url 'about' %}"><i class="fas fa-bullseye"></i>About us</a></li>
+                                <li><a class="dropdown-item" href="{% url 'department' %}"><i class="fas fa-hand-holding-heart"></i> Department</a></li>
+                                <li><a class="dropdown-item" href="{% url 'events-news' %}"><i class="fas fa-calendar-alt"></i> Event & News</a></li>
+                                <li><a class="dropdown-item" href="{% url 'gallary' %}"><i class="fas fa-award"></i> Gallery</a></li>
                             </ul>
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="blog-sidebar.html" id="dropdown05"
+                            <a class="nav-link dropdown-toggle"  id="dropdown05"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog <i
                                     class="icofont-thin-down"></i></a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                                <li><a class="dropdown-item" href="{% url 'about' %}">Gallery</a></li>
-                                <li><a class="dropdown-item" href="blog-sidebar.html">Blog with Sidebar</a></li>
-                                <li><a class="dropdown-item" href="blog-single.html">Blog Single</a></li>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown05"  class="fw-bold">
+                                <li><a class="dropdown-item" href="{%}" ><i class="fas fa-newspaper" class="fw-bold"></i>Medical News</a></li>
+                                
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'apply' %}">apply</a></li>
@@ -177,11 +177,11 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown06">
                                 {% if request.user.role.new_role == "Doctor" %}
-                                <li><a class="dropdown-item" href=" ">My Patients</a></li>
-                                <li><a class="dropdown-item" href=" ">Doctors Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{% url 'doctor_patients' %}">My Patients</a></li>
+                                <li><a class="dropdown-item" href="{% url 'doctor_page' %}">Doctors Dashboard</a></li>
                                 {% else %}
                                 {% endif %}
-                                {% if request.user.role.new_role == "HR" %}
+                                {% if request.user.role.new_role == "HR" %} 
                                 <li><a class="dropdown-item" href="{% url 'hr_dashboard' %}">HR's Dashboard</a></li>
                                 {% else %}
                                 {% endif %}
@@ -190,14 +190,12 @@
                                 </li>
                                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                             </ul>
-                        </li> 
-                        {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Staff-portal</a>
                         </li>
+                        {% else %}
+
                         <li>
-                            <a class="nav-item btn" style="background-color: #00c6a9;"
-                                href="{% url 'appointment' %}">Book Appointment</a>
+                            <a class="nav-item btn" style="background-color: #00c6a9;" href="{% url 'appointment' %}">
+                                Appointment</a>
                         </li>
                         {% endif %}
                     </ul>
@@ -230,191 +228,29 @@
     {% block content %}
     <!-- Page-specific content will go here -->
     {% endblock %}
-
-    <!-- Footer -->
-    <!-- <footer class="footer mt-5" data-aos="zoom-in" data-aos-delay="50" data-aos-duration="1000">
-        <div class="footer-container">
-
-            
-            <div class="footer-about">
-                <h2> Mathias Catholic Hospital Yeji </h2>
-                <p>Your trusted healthcare partner, providing quality medical services and compassionate care for you
-                    and your family.</p>
-            </div>
-
-            
-            <div class="footer-links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="#">Our Services</a></li>
-                    <li><a href="#">Doctors</a></li>
-                    <li><a href="#">Book Appointment</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-
-            
-            <div class="footer-contact">
-                <h3>Contact</h3>
-                <p>Email: <a href="mailto:info@careplus.com">info@careplus.com</a></p>
-                <p>Phone: +233 596 878 044</p>
-                <p>Location: Kumasi, Ghana</p>
-            </div>
-
-            
-            <div class="footer-social">
-                <h3>Follow Us</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-        </div>
  
-        <div class="footer-bottom">
-            <p>Copyright &copy; <span id="currentYear"></span> Yeji Mathias Hospital | All Rights Reserved. Powered by
-                Hospital ITS.
-            </p>
-        </div>
-    </footer> -->
-
-
-    <!-- footer Start -->
-    <!-- <footer class="footer section gray-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mr-auto col-sm-6">
-                    <div class="widget mb-5 mb-lg-0">
-                        <div class="logo mb-4">
-                            <img src="{% static 'images/logo.png' %}" alt="" class="img-fluid">
-                        </div>
-                        <p>Tempora dolorem voluptatum nam vero assumenda voluptate, facilis ad eos obcaecati tenetur
-                            veritatis eveniet distinctio possimus.</p>
-
-                        <ul class="list-inline footer-socials mt-4">
-                            <li class="list-inline-item"><a href="https://www.facebook.com/themefisher"><i
-                                        class="icofont-facebook"></i></a></li>
-                            <li class="list-inline-item"><a href="https://twitter.com/themefisher"><i
-                                        class="icofont-twitter"></i></a></li>
-                            <li class="list-inline-item"><a href="https://www.pinterest.com/themefisher/"><i
-                                        class="icofont-linkedin"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="widget mb-5 mb-lg-0">
-                        <h4 class="text-capitalize mb-3">Department</h4>
-                        <div class="divider mb-4"></div>
-
-                        <ul class="list-unstyled footer-menu lh-35">
-                            <li><a href="#">Surgery </a></li>
-                            <li><a href="#">Wome's Health</a></li>
-                            <li><a href="#">Radiology</a></li>
-                            <li><a href="#">Cardioc</a></li>
-                            <li><a href="#">Medicine</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="widget mb-5 mb-lg-0">
-                        <h4 class="text-capitalize mb-3">Support</h4>
-                        <div class="divider mb-4"></div>
-
-                        <ul class="list-unstyled footer-menu lh-35">
-                            <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Company Support </a></li>
-                            <li><a href="#">FAQuestions</a></li>
-                            <li><a href="#">Company Licence</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="widget widget-contact mb-5 mb-lg-0">
-                        <h4 class="text-capitalize mb-3">Get in Touch</h4>
-                        <div class="divider mb-4"></div>
-
-                        <div class="footer-contact-block mb-4">
-                            <div class="icon d-flex align-items-center">
-                                <i class="icofont-email mr-3"></i>
-                                <span class="h6 mb-0">Support Available for 24/7</span>
-                            </div>
-                            <h4 class="mt-2"><a href="tel:+23-345-67890">Support@email.com</a></h4>
-                        </div>
-
-                        <div class="footer-contact-block">
-                            <div class="icon d-flex align-items-center">
-                                <i class="icofont-support mr-3"></i>
-                                <span class="h6 mb-0">Mon to Fri : 08:30 - 18:00</span>
-                            </div>
-                            <h4 class="mt-2"><a href="tel:+23-345-67890">+233 596878044</a></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-btm py-4 mt-5">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-lg-6">
-                        <div class="copyright">
-                            <span id="currentYear"></span> &copy; Copyright Reserved to <span class="text-color">Mathias
-                                Catholic
-                                Hospital,Yeji</span>Power by IT departement SALIM
-
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="subscribe-form text-lg-right mt-5 mt-lg-0">
-                            <form action="#" class="subscribe" method="post">
-                                {%csrf_token%}
-                                <input type="text" class="form-control" name="subscribemails"
-                                    placeholder="Your Email address" required>
-                                <button type="submit" class="btn btn-main-2 btn-round-full"><i
-                                        class="fas fa-paper-plane"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-4">
-                        <a class="backtop js-scroll-trigger" href="#top">
-                            <i class="icofont-long-arrow-up"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer> -->
-
-    <footer class="footer">
+    <footer class="footer mt-5">
         <div class="footer-container">
 
             <!-- Column 1: Contact -->
             <div class="footer-column">
                 <h3>Get in Touch</h3>
-                <p><i><i class="fa-solid fa-envelope"></i></i> mathias.hospital@yahoo.com</p>
-                <p><i><i class="fa-solid fa-phone"></i>Tel:</i> +233 814 9627</p>
+                <p><i><i class="fa-solid fa-envelope"></i></i> <a href="mailto:mathias.hospital@yahoo.com"
+                        class="text-white"> mathias.hospital@yahoo.com</a></p>
+                <p><i><i class="fa-solid fa-phone"></i>Tel:</i><a href="tel:+233 814 9627" class="text-white">+233 814
+                        9627</a> </p>
                 <p><i><i class="fa-solid fa-location-dot"></i>GPS:</i>BP 0004-1497</p>
                 <p><i><i class="fa-solid fa-location-dot"></i></i> AE 41, Bishop Kwadwo Owusu Road, Yeji, Ghana</p>
-
             </div>
 
             <!-- Column 2: Quick Links -->
             <div class="footer-column">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li>About us</li>
-                    <li>Blog</li>
-                    <li>Contact us</li>
-                    <li>FAQ</li>
-                    <li>Insurance</li>
+                    <li><a href="{% url 'login' %}" class="text-white"> Staff portal</a></li>
+                    <li><a href="{% url 'our-team' %}" class="text-white"> Our team</a></li>
+                    <li><a href="{% url 'apply' %}" class="text-white"> apply for job</a></li>
+
                 </ul>
             </div>
 
@@ -422,7 +258,6 @@
             <div class="footer-column">
                 <h3>Our Services</h3>
                 <ul>
-                    <li>Work Injuries</li>
                     <li>Sport Injuries</li>
                     <li>Cold Laser Therapy</li>
                     <li>Massage Therapy</li>
@@ -433,12 +268,13 @@
 
             <!-- Column 4: Enquiry Form -->
             <div class="footer-column footer-form">
-                <h3>Enquiry Form</h3>
-                <form>
-                    <input type="text" placeholder="Name" required />
-                    <input type="text" placeholder="Phone" required />
-                    <textarea rows="3" placeholder="Message"></textarea>
-                    <button type="submit">SUBMIT</button>
+                <h3>subscribe </h3>
+                <form action="#" class="subscribe" method="post">
+                    {%csrf_token%}
+                    <input type="text" name="subscribemails" class="form-control" placeholder="Your Email address"
+                        required>
+                    <button type="submit" class="btn btn-main-2 btn-round-full"><i class="fas fa-paper-plane"></i>
+                    </button>
                 </form>
             </div>
 
@@ -446,7 +282,7 @@
 
         <!-- Social Media -->
         <div class="footer-social">
-            Copyright © 2025. Mathias Catholic Hospital- Yeji |
+            Copyright © 2025. Mathias Catholic Hospital- Yeji |Powered by IT department
         </div>
     </footer>
 

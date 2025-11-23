@@ -14,7 +14,6 @@ def sendAccoucement_To_Subscribers(sender,created,instance,**kwargs):
 
         all_subscribers=Subscribes.objects.all() 
         for emails in all_subscribers:
-
             send_mail(subject,message,from_mail,[emails],fail_silently=False) 
             
 

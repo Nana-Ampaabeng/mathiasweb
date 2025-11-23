@@ -103,6 +103,7 @@ class AddStaffImage(models.Model):
     class Meta:
         verbose_name="About U" 
 
+
 class SpecialWorkers(models.Model):
     name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
@@ -198,3 +199,11 @@ class News(models.Model):
     
 
 
+class Gallary(models.Model):
+    image=models.ImageField(upload_to='gallary/')
+    title=models.CharField(max_length=40,null=True, blank=True)
+    description=models.CharField(max_length=100, null=True, blank=True) 
+
+    def __str__(self):
+        return self.title 
+    
