@@ -423,7 +423,7 @@ body::-webkit-scrollbar-thumb:hover {
 /* Section Flex */
 .section-flex {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; 
   gap: 40px;
   justify-content: space-between;
 }
@@ -802,15 +802,10 @@ body::-webkit-scrollbar-thumb:hover {
 }
 .navbar nav.show {display: flex;z-index: 999;}
 .menu-toggle {display: block;}
-.flex-row-counter{gap: 140px;}
 .hero h1{font-size: 40px!important;}
 .top-bar{display: none;}
 
-.flex-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(200px,2fr));
-  gap: 10px; 
-}
+ 
 
 }
 

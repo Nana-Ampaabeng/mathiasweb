@@ -50,7 +50,7 @@ class Appointement(models.Model):
         ("male","Male"),
         ("female","Female"), 
     ],default="choose") 
- 
+    
     Status=models.CharField(max_length=50, choices=[
         ("pending","Pending"),
         ("approved","Approved"), 

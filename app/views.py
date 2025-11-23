@@ -54,7 +54,7 @@ def home(request):
          return redirect('home')
     gallary=Gallary.objects.only('image','title','description')[:5]
     events = Event.objects.only('image', 'Title', 'event_des', 'event_date','poster').first() 
-    news = News.objects.only('image', 'Title', 'news_date','poster','desc').first() 
+    news = News.objects.only('image', 'Title', 'news_date','poster','desc').last()
     services= Services.objects.only('Icon','Title','info')
     context={
         'services':services,
@@ -325,7 +325,6 @@ def loginview(request):
 # logout
 def logout_view(request):
     logout(request)
-    messages.info(request,'Logout successfully') 
     return redirect('home')
 
 
