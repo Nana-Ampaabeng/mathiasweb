@@ -53,7 +53,7 @@ def home(request):
          messages.info(request,'We will notify you of any update')
          return redirect('home')
     gallary=Gallary.objects.only('image','title','description')[:5]
-    events = Event.objects.only('image', 'Title', 'event_des', 'event_date','poster').first() 
+    events = Event.objects.only('image', 'Title', 'event_des', 'event_date','poster').last()
     news = News.objects.only('image', 'Title', 'news_date','poster','desc').last()
     services= Services.objects.only('Icon','Title','info')
     context={

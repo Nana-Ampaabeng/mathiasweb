@@ -234,6 +234,11 @@
                             {% if request.user.role.new_role == "HR" %}
                             <a href="{% url 'hr_dashboard' %}"><i class="fas fa-book-open"></i> Dashboard</a>
                             {% endif %}
+                            {%if request.user.is_superuser%}
+                            <a href="{% url 'hr_dashboard' %}"><i class="fas fa-book-open"></i>HR Dashboard</a>
+                            <a href="{% url 'doctor_page' %}"><i class="fas fa-bullseye"></i> Dashboard </a>
+
+                            {%endif%}
                             <hr>
                             <a href="{% url 'logout' %}"><i class="fas fa-logout-alt"></i> logout</a>
                         </div>
