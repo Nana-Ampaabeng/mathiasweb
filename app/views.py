@@ -46,13 +46,21 @@ def base(request):
 
 
 def home(request): 
+    if request.method=='POST':
+         email=request.POST.get('subscribemails')  
+         subcribsemail=Subscribes.objects.create(emails=email) 
+         subcribsemail.save()  
+         messages.info(request,'We will notify you of any update')
+         return redirect('home')
+    gallary=Gallary.objects.only('image','title','description')[:5]
     events = Event.objects.only('image', 'Title', 'event_des', 'event_date','poster').first() 
     news = News.objects.only('image', 'Title', 'news_date','poster','desc').first() 
     services= Services.objects.only('Icon','Title','info')
     context={
         'services':services,
         'n':news,
-        'e':events 
+        'e':events ,
+        'g':gallary 
     } 
 
     return render(request,'index.html',context) 
@@ -72,7 +80,17 @@ def about_page(request):
     page_no=request.GET.get('page')     
     pagination_obj=paginator.get_page(page_no)
     # random.shuffle(pagination_obj)    
-    return render(request, 'gallery.html', {'departments': departments, 'images': pagination_obj})
+    return render(request, 'about_us.html', {'departments': departments, 'images': pagination_obj})
+
+# gallyer page 
+def gallary(request):
+
+    gallarys=Gallary.objects.only('image','title','description')
+    paginator=Paginator(gallarys,8) 
+    page_no=request.GET.get('page')
+    paginator_obj=paginator.get_page(page_no) 
+    return render(request,'gallary.html',{'gallary':paginator_obj})
+
 
 
 # appointment_view
@@ -318,6 +336,195 @@ def Event_new(request):
     return render(request, 'event_new.html', {'events': events,'news':news}) 
 
 
-# def readmoreDetails(request,id):
-#     eventd=Event.objects.get(id=id)
-#     newsd=News.objects.get(id=id) 
+ # doctor's view appointment 
+def doctor_appointments(request):
+    # Get all appointments ordered by date and time
+    status_filter=request.GET.get('status') 
+    date_filter=request.GET.get('date')
+    id_search=request.GET.get('id') 
+    appointments_list = Appointement.objects.all().order_by('date')
+    if id_search:  
+         appointments_list=Appointement.objects.filter(refrence=id_search)
+    if status_filter:   
+        appointments_list=Appointement.objects.filter(Status=status_filter)
+                                                                       
+    if date_filter:  
+        try:
+            appointments_list=Appointement.objects.filter(date=date_filter)  
+        except ValueError:
+                messages.error(request, "Invalid date format.")
+                return redirect('doctor_page') 
+         
+    
+    
+    # Pagination
+    paginator = Paginator(appointments_list, 10)  
+    page_number = request.GET.get('page') 
+    appointments = paginator.get_page(page_number)
+    
+    # Calculate statistics
+    today = timezone.now().date()
+    start_of_week = today - timedelta(days=today.weekday())
+    end_of_week = start_of_week + timedelta(days=6)
+    
+    today_count = Appointement.objects.filter(date=today).count()
+    week_count = Appointement.objects.filter(date__range=[start_of_week, end_of_week]).count()
+
+    pending_count = Appointement.objects.filter(Status="pending").count()
+    approve_count = Appointement.objects.filter(Status="approved").count()
+    complete_count = Appointement.objects.filter(Status="complete").count()
+    cancel_count = Appointement.objects.filter(Status="cancelled").count()
+    total_patients = Appointement.objects.values("phone_number").distinct().count()
+    
+    today_appointments = Appointement.objects.filter(date=today)
+
+    context = {
+        'appointments': appointments,
+        'today_appointments': today_appointments,
+        'today_count': today_count,
+        'week_count': week_count,
+        'approved_count': approve_count,
+        'complete_count': complete_count,
+        'cancel_count': cancel_count, 
+        'pending_count': pending_count,
+        'total_patients': total_patients,
+        'today': today,
+        'status_filter':status_filter,  
+    }
+    
+    return render(request, 'doctors_dashboard.html', context) 
+
+def cancel_patient(request):
+    cancel_patients=Appointement.objects.filter(Status="cancelled")
+    return render(request,'cancel_patient.html',{'appointments':cancel_patients}) 
+
+def pending_patient(request):
+    get_pending_patients=Appointement.objects.filter(Status="pending")
+    return render(request,'pending_patient.html',{'appointments':get_pending_patients}) 
+
+
+def complete_patient(request):
+    get_complete_patients=Appointement.objects.filter(Status="complete") 
+    return render(request,'complete_patient.html',{'appointments':get_complete_patients}) 
+
+
+def approve_patient(request):
+    get_approve_patients=Appointement.objects.filter(Status="approved")
+    return render(request,'approve_patient.html',{'appointments':get_approve_patients})  
+
+def today_appointment(request):
+    today = timezone.now().date()
+    get_approve_patients=Appointement.objects.filter(date=today)
+    return render(request,'today_appointment.html',{'appointments':get_approve_patients})  
+
+
+import secrets,string
+def secure_reference_code(length=10):
+    characters = string.ascii_uppercase + string.digits
+    return ''.join(secrets.choice(characters) for _ in range(length))
+
+# approve appointment  
+def approve_appointment(request,id): 
+    try:
+         patient_app_id=Appointement.objects.get(id=id) 
+        
+    except Appointement.DoesNotExist:
+        messages.info(request,"Appointment id does't not exist")
+        return redirect(request,'doctor_page')
+
+    patient_app_id.Status="approved" 
+    patient_app_id.Doctor=request.user 
+    # generate refrence code 
+    patient_refrence_code=secure_reference_code()
+    patient_app_id.refrence=patient_refrence_code
+    if Appointement.objects.filter(refrence=patient_refrence_code).exists():
+        messages.error(request,'Refrence code exist already try again') 
+        return redirect('doctor_page')  
+        
+    try: 
+        sendmail=EmailMessage(
+            body=f"Your Appointement have been approved by DR.{request.user} \n <h3> appointment code:{patient_refrence_code}",
+            from_email=f"Mathias<{settings.EMAIL_HOST_USER}>", 
+            to=[patient_app_id.email],
+            bcc=["issahsalim233@gmail.com"] 
+        ) 
+        sendmail.send() 
+    except BadHeaderError as e:
+                messages.error(request,f"Error occur when sending mail. Try again : {e}")
+                return redirect('doctor_page')
+    
+    except smtplib.SMTPException as e:
+                  messages.error(request,f"Error occur when sending mail. Try again {e}")
+                  return redirect('doctor_page')
+            
+    except Exception as e: 
+        messages.error(request,f"Error occur when send mail to patient try again. error code{e}")
+        return redirect('doctor_page') 
+    patient_app_id.save()  
+    messages.success(request,f"Appointement successfully approved by DR.{request.user}") 
+
+    try:
+        url=redirect(reverse('doctor_page'))
+    except NoReverseMatch: 
+        messages.error(request, "Page not found. Redirecting to dashboard instead.")
+        return redirect('doctor_page') 
+    return redirect('doctor_page')
+    
+
+# cancel appointment
+def cancel_appointment(request, id):
+        try:
+            appointment = Appointement.objects.get(id=id, Doctor=request.user)
+        except Appointement.DoesNotExist: 
+            messages.error(request,'Appointment doest not exsit')
+            return redirect('doctor_patients')
+        appointment.Status = "cancelled"
+        appointment.Doctor=None 
+        appointment.refrence="" 
+        try:  
+            sendmail=EmailMessage(
+                body=f"""
+                        Hi, {appointment.full_name} DR.{request.user} has Cancelled you appointement with him <br/>
+                        <h1> Sorry for that wait for another approval by another doctor</h1> 
+                    """,  
+                from_email=f"Mathias<{settings.EMAIL_HOST_USER}>",
+                to=[appointment.email],
+                bcc=["issahsalim233@gmail.com"] 
+            )   
+            sendmail.send() 
+        except BadHeaderError as e:
+                messages.error(request,f"Error occur when sending mail{e}")
+                return redirect('doctor_patients')
+    
+        except smtplib.SMTPException as e:
+                  messages.error(request,f"Error occur when sending mail{e}")
+                  return redirect('doctor_patients')
+            
+        except Exception as e:  
+            messages.error(request,f"Error occur when send mail to patient why again. error code{e}")
+            return redirect('doctor_patients') 
+        
+        appointment.save() 
+        messages.info(request,'Appointment cancelled') 
+        return redirect('doctor_patients')  
+
+
+  #complete appointment 
+
+def complete_appointment(request, id):
+        try:
+            appointment = Appointement.objects.get(id=id, Doctor=request.user)
+        except Appointement.DoesNotExist: 
+            messages.error(request,'Appointment doest not exsit')
+            return redirect('doctor_patients')
+        appointment.Status = "complete"
+         
+        appointment.save() 
+        messages.info(request,f'Appointment complete. Nice work DR.{request.user}') 
+        return redirect('doctor_patients')  
+        
+
+def doctor_patients(request):
+    my_patients=Appointement.objects.filter(Doctor=request.user) 
+    return render(request,'doctor_page.html',{'doctor_patients':my_patients})
+

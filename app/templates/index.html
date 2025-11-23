@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="{% static 'images/logo-icon.png' %}" type="image/x-icon">
-    <title> Welcome - Mathias Catholic Hospital</title>
+    <title> mch yeji </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <!-- AOS CSS -->
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
@@ -17,11 +17,12 @@
     <link rel="stylesheet" href="{%static 'css/style.css'%}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="{% static 'plugins/icofont/icofont.min.css'%}">
-
+    <meta name="description"
+        content="mathias catholic hospital yeji, yeji hospital, hospital, bono-east hospital, ghana hospital, pru east hospital, mch, mch yeji">
+    <meta name="author" content="mch.org">
 </head>
 
 <body>
-
     <style>
         .ap_btn {
             background-color: #00c6a9;
@@ -35,19 +36,150 @@
                 height: 50vh;
                 border-radius: 12px;
                 margin-bottom: 15px;
+                margin-top: 30px;
             }
 
             .section {
                 transform: translateY(-90px);
             }
 
-
             .slide-title {
                 font-size: 2rem;
-              
+            }
+
+            .team {
+                transform: translateY(30px);
             }
         }
+
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .preloader-logo {
+            width: 120px;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        .preloader-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .preloader-text {
+            font-size: 18px;
+            color: #00c6a9;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            position: relative;
+        }
+
+        .loader-inner {
+            position: absolute;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #00c6a9;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1.5s linear infinite;
+        }
+
+        .loader-inner:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            top: 10px;
+            left: 10px;
+            animation: spin 1s linear infinite reverse;
+            border-top-color: #0d8a74;
+        }
+
+        .loader-inner:nth-child(3) {
+            width: 20px;
+            height: 20px;
+            top: 20px;
+            left: 20px;
+            animation: spin 0.5s linear infinite;
+            border-top-color: #0a6b5a;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* FIXED: Correct CSS selectors */
+        body.loaded #preloader {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Hide content initially */
+        body:not(.loaded)>*:not(#preloader) {
+            opacity: 0;
+        }
+
+        body.loaded>*:not(#preloader) {
+            opacity: 1;
+            transition: opacity 0.5s ease-in;
+        }
     </style>
+ 
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-container">
+            
+            <div class="preloader-logo">
+                <i class="fas fa-heartbeat" style="font-size: 80px; color: #00c6a9;"></i>
+                <img src="{% static 'images/' %}" alt="">
+            </div>
+            <div class="preloader-text">Mathias Catholic Hospital</div>
+            <div class="loader">
+                <div class="loader-inner"></div>
+                <div class="loader-inner"></div>
+                <div class="loader-inner"></div>
+            </div>
+        </div>
+    </div>
 
     <section class="top-bar-section">
         <div class="container">
@@ -70,22 +202,21 @@
                     <a href="{% url 'our-team' %}"> Our Team</a>
 
                     <div class="dropdown">
-                        <a href="#about">About us</a>
+                        <a href="#about">About</a>
+
                         <div class="dropdown-content">
+                            <a href="{% url 'about' %}"><i class="fas fa-bullseye"></i>About Us</a>
                             <a href="{% url 'department' %}"><i class="fas fa-hand-holding-heart"></i> Department</a>
-                            <a href="{% url 'events-news' %}"><i class="fas fa-users"></i> Event & News </a>
-                            <a href="#accreditation"><i class="fas fa-award"></i> Accreditation</a>
+                            <a href="{% url 'events-news' %}"><i class="fas fa-calendar-alt"></i> Event & News </a>
+                            <a href="{% url 'gallary' %}"><i class="fas fa-award"></i> gallary</a>
                         </div>
                     </div>
 
                     <div class="dropdown">
                         <a href="#blog">Blogs </a>
                         <div class="dropdown-content">
-                            <a href="{% url 'about' %}"><i class="fas fa-bullseye"></i> Gallery </a>
                             <a href="#medical-news"><i class="fas fa-newspaper"></i> Medical News</a>
-                            <a href="#patient-stories"><i class="fas fa-book-open"></i> Patient Stories</a>
-                            <a href="#research"><i class="fas fa-flask"></i> Research Updates</a>
-                            <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
+
                         </div>
                     </div>
 
@@ -96,11 +227,11 @@
                         <a href=" "><i class="icofont-user"></i>{{ user.username }} </a>
                         <div class="dropdown-content">
                             {% if request.user.role.new_role == "Doctor" %}
-                            <a href="{% url 'about' %}"><i class="fas fa-bullseye"></i> Dashboard </a>
-                            <a href="#medical-news"><i class="fas fa-newspaper"></i> My patients</a>
-                            {% endif %}
+                            <a href="{% url 'doctor_page' %}"><i class="fas fa-bullseye"></i> Dashboard </a>
+                            <a href="{% url 'doctor_patients' %}"><i class="fas fa-newspaper"></i> My patients</a>
+                            {% endif %}  
                             {% if request.user.role.new_role == "HR" %}
-                            <a href="#patient-stories"><i class="fas fa-book-open"></i> Dashboard</a>
+                            <a href="{% url 'hr_dashboard' %}"><i class="fas fa-book-open"></i> Dashboard</a>
                             {% endif %}
                             <hr>
                             <a href="{% url 'logout' %}"><i class="fas fa-logout-alt"></i> logout</a>
@@ -108,9 +239,8 @@
                     </div>
                     {% else %}
 
-                    <a class="nav-link" href="{% url 'login' %}">Staff-portal</a>
 
-                    <a class="btn" style="background-color: #00c6a9;" href="{% url 'appointment' %}">Book
+                    <a class="btn" style="background-color: #00c6a9;" href="{% url 'appointment' %}">
                         Appointment</a>
 
                     {% endif %}
@@ -127,13 +257,13 @@
             <div class="swiper-wrapper">
 
                 <div class="swiper-slide hero-slide"
-                    style="background-image: url({% static 'images/new.jpeg' %}); background-size:cover; ">
+                    style="background-image: url({% static 'images/C.jpeg' %}); background-size:cover; ">
                     <div class="hero-content">
                         <h2 data-aos="fade-up" class="slide-title">Welcome to Mathias Hospital</h2>
                         <p data-aos="fade-down-right" data-aos-anchor-placement="bottom-bottom" class="slide-text">Your
                             health and comfort are our top priorities. Get the care you deserve
                             with ease.</p>
-                        <a href="#" class="hero-btn">Let's Start</a>
+                        <a href="tel:*422*190#" class="hero-btn">Donate</a>
                     </div>
                 </div>
 
@@ -183,7 +313,7 @@
                     <div class="swiper-slide">
                         <div class="doctor-card text-center shadow-sm rounded-4 p-3 bg-white">
                             <img src="{{s.Icon.url}}" alt="{{ s.Title }}" class="doctor-img mb-3 rounded-circle"
-                                style="width: 120px; height: 120px; object-fit: cover;">
+                                style="width: 120px; height: 120px; object-fit: cover;" loading="lazy">
                             <h3 class="">{{ s.Title}}</h3>
                             <!-- <p class="text-muted mb-1">{{ doctor.position }}</p> -->
                             <p class="small text-secondary">{{ s.info|truncatewords:7 }}</p>
@@ -221,7 +351,7 @@
             <div class="features" data-aos="fade-right">
                 <div class="feature">
                     <div class="feature-icon">
-                        <img src="{% static 'images/chooseIcon-1.png' %}" />
+                        <img src="{% static 'images/chooseIcon-1.png' %}" loading="lazy" />
                     </div>
                     <div class="feature-text">
                         <h3> OUR VISION</h3>
@@ -233,7 +363,7 @@
                 </div>
                 <div class="feature" data-aos="fade-right">
                     <div class="feature-icon">
-                        <img src="{% static 'images/chooseIcon-3.png'%}" />
+                        <img src="{% static 'images/chooseIcon-3.png'%}" loading="lazy" />
                     </div>
                     <div class="feature-text">
                         <h3> OUR MISSION</h3>
@@ -249,14 +379,14 @@
 
             <!-- Center Image -->
             <div class="center-image" data-aos="fade-down">
-                <img src="{% static 'images/why-choose.png' %}" alt="Doctor" />
+                <img src="{% static 'images/why-choose.png' %}" alt="Doctor" loading="lazy" />
             </div>
 
             <!-- Right Column -->
             <div class="features" data-aos="fade-left">
                 <div class="feature">
                     <div class="feature-icon">
-                        <img src="{% static 'images/chooseIcon-2.png' %}">
+                        <img src="{% static 'images/chooseIcon-2.png' %}" loading="lazy">
                     </div>
                     <div class="feature-text">
                         <h3>GOALS </h3>
@@ -269,7 +399,7 @@
                 </div>
                 <div class="feature" data-aos="fade-left">
                     <div class="feature-icon">
-                        <img src="{% static 'images/chooseIcon-4.png' %}" />
+                        <img src="{% static 'images/chooseIcon-4.png' %}" loading="lazy" />
                     </div>
 
                     <div class="feature-text">
@@ -289,6 +419,7 @@
             </div>
         </div>
     </section>
+
     <section class="counter-section">
         <div class="flex-row flex-row-counter">
             <div data-aos="fade-up">
@@ -322,7 +453,7 @@
         <!-- Dynamic Display Section -->
 
         <div class="left-column dept-display" id="deptDisplay">
-            <img id="deptImage" src="{% static 'images/team-1.jpg' %}" alt="">
+            <img id="deptImage" src="{% static 'images/team-1.jpg' %}" loading="lazy" alt="">
         </div>
 
         <!-- Right Column -->
@@ -393,13 +524,13 @@
             <div class="articles">
 
                 <div class="article">
-                    <img src="{{e.image.url}}" alt="Doctor Image 1">
+                    <img src="{{e.image.url}}" alt="Doctor Image 1" loading="lazy">
                     <h3> {{e.Title}} </h3>
                     <small>{{e.event_date}} | {{e.poster}} </small>
                     <p> {{e.event_des}} </p>
                 </div>
                 <div class="article">
-                    <img src="{{n.image.url}}" alt="Doctor Image 2">
+                    <img src="{{n.image.url}}" alt="Doctor Image 2" loading="lazy">
                     <h3> {{n.Title}} </h3>
                     <small> {{n.news_date}} | {{n.poster}} </small>
                     <p> {{n.desc}} </p>
@@ -415,50 +546,18 @@
         <h2>Gallery</h2>
         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
 
-        <div class="gallery-grid">
+        <div class="gallery-grid" style="margin-bottom: 40px;">
+            {% for g in g %}
             <div class="gallery-item" data-aos="fade-left">
-                <img src="{% static 'images/gallary-1.jpg' %}">
+                <img src="{{g.image.url}}" style="height: 200px;">
                 <div class="gallery-overlay">
-                    <h3>Image Title 1</h3>
-                    <p>Brief description of the image or treatment here.</p>
+                    <h3> {{g.title}} </h3> 
+                    <p> {{g.description}} </p>
                 </div>
             </div>
-            <div class="gallery-item" data-aos="fade-left">
-                <img src="{% static 'images/gallary-2.jpg' %}">
-                <div class="gallery-overlay">
-                    <h3>Image Title 2</h3>
-                    <p>Short details about the process or service.</p>
-                </div>
-            </div>
-            <div class="gallery-item" data-aos="fade-left">
-                <img src="{% static 'images/gallary-3.jpg' %}">
-                <div class="gallery-overlay">
-                    <h3>Image Title 3</h3>
-                    <p>Overlay content shown on hover.</p>
-                </div>
-            </div>
-            <div class="gallery-item" data-aos="fade-left">
-                <img src="{% static 'images/gallary-4.jpg' %}">
-                <div class="gallery-overlay">
-                    <h3>Image Title 4</h3>
-                    <p>Explain the image purpose here.</p>
-                </div>
-            </div>
-            <div class="gallery-item" data-aos="fade-left">
-                <img src="{% static 'images/gallary-5.jpg' %}">
-                <div class="gallery-overlay">
-                    <h3>Image Title 5</h3>
-                    <p>Could be a medicine or treatment plan.</p>
-                </div>
-            </div>
-            <div class="gallery-item" data-aos="fade-left">
-                <img src="{% static 'images/gallary-6.jpg' %}">
-                <div class="gallery-overlay">
-                    <h3>Image Title 6</h3>
-                    <p>Consultation image description here.</p>
-                </div>
-            </div>
+            {%endfor%}
         </div>
+        <a href="{% url 'gallary' %}" style="background-color: #010101; padding: 10px; margin-top: 40px; border-radius: 20px;"> View More</a>
     </section>
 
 
@@ -467,19 +566,22 @@
         <p class="sub-heading" data-aos="fade-right">We're an overall gathering of doctors, producers, specialists and
             analyzers who are eager about unsolvable in medical services. </p>
         <div class="flex-row">
-            <div class="card" data-aos="zoom-in"><img src="{% static 'images/team-1.jpg' %}" />
+            <div class="card" data-aos="zoom-in"><img src="{% static 'images/team-1.jpg' %}" loading="lazy" />
                 <h4>Most Rev. Appu Francis</h4>
                 <p>Chaplain</p>
             </div>
-            <div class="card" data-aos="zoom-in" data-aos-delay="100"><img src="{% static 'images/team-3.jpg' %}" />
+            <div class="card" data-aos="zoom-in" data-aos-delay="100"><img src="{% static 'images/team-3.jpg' %}"
+                    loading="lazy" />
                 <h4>Rev. Sr. Glory Jhacintha Rani</h4>
                 <p>Administrator</p>
             </div>
-            <div class="card" data-aos="zoom-in" data-aos-delay="200"><img src="{% static 'images/team-2.jpg'%}" />
+            <div class="card" data-aos="zoom-in" data-aos-delay="200"><img src="{% static 'images/team-2.jpg'%}"
+                    loading="lazy" />
                 <h4>Dr. Evans Dotcher Narh</h4>
                 <p>Medical Director</p>
             </div>
-            <div class="card" data-aos="zoom-in" data-aos-delay="200"><img src="{% static 'images/team-3.jpg' %}" />
+            <div class="card" data-aos="zoom-in" data-aos-delay="200"><img src="{% static 'images/team-3.jpg' %}"
+                    loading="lazy" />
                 <h4>Mss.Vivian Amma Yeaboh</h4>
                 <p>Director of Human Resource</p>
             </div>
@@ -508,22 +610,21 @@
             <!-- Column 1: Contact -->
             <div class="footer-column">
                 <h3>Get in Touch</h3>
-                <p><i><i class="fa-solid fa-envelope"></i></i> mathias.hospital@yahoo.com</p>
-                <p><i><i class="fa-solid fa-phone"></i>Tel:</i> +233 814 9627</p>
+                <p><i><i class="fa-solid fa-envelope"></i></i> <a href="mailto:mathias.hospital@yahoo.com">
+                        mathias.hospital@yahoo.com</a></p>
+                <p><i><i class="fa-solid fa-phone"></i>Tel:</i><a href="tel:+233 814 9627">+233 814 9627</a> </p>
                 <p><i><i class="fa-solid fa-location-dot"></i>GPS:</i>BP 0004-1497</p>
                 <p><i><i class="fa-solid fa-location-dot"></i></i> AE 41, Bishop Kwadwo Owusu Road, Yeji, Ghana</p>
-
             </div>
 
             <!-- Column 2: Quick Links -->
             <div class="footer-column">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li>About us</li>
-                    <li>Blog</li>
-                    <li>Contact us</li>
-                    <li>FAQ</li>
-                    <li>Insurance</li>
+                    <li><a href="{% url 'login' %}"> Staff portal</a></li>
+                    <li><a href="{% url 'our-team' %}"> Our team</a></li>
+                    <li><a href="{% url 'apply' %}"> apply for job</a></li>
+
                 </ul>
             </div>
 
@@ -531,7 +632,6 @@
             <div class="footer-column">
                 <h3>Our Services</h3>
                 <ul>
-                    <li>Work Injuries</li>
                     <li>Sport Injuries</li>
                     <li>Cold Laser Therapy</li>
                     <li>Massage Therapy</li>
@@ -542,12 +642,13 @@
 
             <!-- Column 4: Enquiry Form -->
             <div class="footer-column footer-form">
-                <h3>Enquiry Form</h3>
-                <form>
-                    <input type="text" placeholder="Name" required />
-                    <input type="text" placeholder="Phone" required />
-                    <textarea rows="3" placeholder="Message"></textarea>
-                    <button type="submit">SUBMIT</button>
+                <h3>subscribe </h3>
+                <form action="#" class="subscribe" method="post">
+                    {%csrf_token%}
+                    <input type="text" name="subscribemails" class="form-control" placeholder="Your Email address"
+                        required>
+                    <button type="submit" class="btn btn-main-2 btn-round-full"><i class="fas fa-paper-plane"></i>
+                    </button>
                 </form>
             </div>
 
@@ -555,7 +656,7 @@
 
         <!-- Social Media -->
         <div class="footer-social">
-            Copyright © 2025. Mathias Catholic Hospital- Yeji |
+            Copyright © 2025. Mathias Catholic Hospital- Yeji |Powered by IT department
         </div>
     </footer>
 
@@ -665,6 +766,32 @@
                 }
             });
         });
+
+        // Preloader functionality - FIXED VERSION
+        window.addEventListener('load', function () {
+            // Add a small delay to ensure everything is loaded
+            setTimeout(function () {
+                document.body.classList.add('loaded');
+
+                // Force reflow to ensure transition works
+                void document.body.offsetWidth;
+            }, 1000); // Adjust this time if needed
+        });
+
+        // Alternative approach if the above doesn't work
+        document.addEventListener('DOMContentLoaded', function () {
+            window.addEventListener('load', function () {
+                setTimeout(function () {
+                    document.body.classList.add('loaded');
+                }, 1000);
+            });
+
+            // Fallback: remove preloader after 3 seconds max
+            setTimeout(function () {
+                document.body.classList.add('loaded');
+            }, 3000);
+        });
+
     </script>
 
 </body>

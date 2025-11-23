@@ -1,6 +1,11 @@
-
- 
+<style>
+  @media (max-width:768px) {
+    .page{
+      transform: translateY(70px);
+    }
+  }
 </style>
+ 
 <div class="service-cards container mt-4 mb-4">
     {% for service in services %}
     <div class="card" style="width: 21rem; padding:0 0 30px 0;">
@@ -13,7 +18,7 @@
     {% endfor %}
 </div> 
 
-<nav aria-label="Page navigation myown mt-4">
+<nav aria-label="Page navigation myown mt-4" class="page">
   <ul class="pagination justify-content-center">
     {% if services.has_previous %}
       <li class="page-item">

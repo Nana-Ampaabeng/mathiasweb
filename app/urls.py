@@ -20,6 +20,19 @@ urlpatterns = [
  path('nurse_app/',views.nurese_applications,name="nurse_app"),
  path('other_app/',views.others_applications,name="other_app"),
  path('events-news/',views.Event_new,name="events-news"),
+ path('gallary/',views.gallary,name="gallary"), 
+ path('doctor_page/', views.doctor_appointments, name='doctor_page'),
+ path('doctor_patients/',views.doctor_patients,name="doctor_patients"),
+ path('approve_appointment/<int:id>/',views.approve_appointment,name="approve_appointment"),
+ path('doctor_patients/',views.doctor_patients,name="doctor_patients"),
+ path("cancel-appointment/<int:id>/", views.cancel_appointment, name="cancel_appointment"),
+ path("complete-appointment/<int:id>/", views.complete_appointment, name="complete_appointment"),
+ path("approve_appointment/", views.approve_patient, name="approve_appointment"),
+ path("cancel_appointment/", views.cancel_patient, name="cancel_patient"),
+ path("complete_appointment/", views.complete_patient, name="complete_patient"),
+ path("pending_appointment/", views.pending_patient, name="pending_patient"),
+ path("today_appointment/", views.today_appointment, name="today_appointment"),
+    
     # reset password urls 
       path('password_reset/',views.CustomPasswordResetView.as_view( 
          template_name='reset_password.html',
