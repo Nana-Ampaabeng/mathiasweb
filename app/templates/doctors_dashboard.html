@@ -131,11 +131,15 @@
                                 <li><a class="dropdown-item" href="{% url 'doctor_patients' %}">My Patients</a></li>
                                 <li><a class="dropdown-item" href="{% url 'doctor_page' %}">Doctors Dashboard</a></li>
                                 {% else %}
-                                {% endif %}
+                                {% endif %} 
                                 {% if request.user.role.new_role == "HR" %} 
                                 <li><a class="dropdown-item" href="{% url 'hr_dashboard' %}">HR's Dashboard</a></li>
                                 {% else %}
                                 {% endif %}
+                                {% if request.user.is_superuser%}
+                                <li><a class="dropdown-item" href="{% url 'hr_dashboard' %}">HR's Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{% url 'doctor_page' %}">Doctors Dashboard</a></li>
+                                {%endif%}
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>

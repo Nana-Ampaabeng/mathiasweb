@@ -150,20 +150,24 @@
                                 aria-haspopup="true" aria-expanded="false">About<i class="icofont-thin-down"></i></a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdown02">
-                                <li><a class="dropdown-item" href="{% url 'about' %}"><i class="fas fa-bullseye"></i>About us</a></li>
-                                <li><a class="dropdown-item" href="{% url 'department' %}"><i class="fas fa-hand-holding-heart"></i> Department</a></li>
-                                <li><a class="dropdown-item" href="{% url 'events-news' %}"><i class="fas fa-calendar-alt"></i> Event & News</a></li>
-                                <li><a class="dropdown-item" href="{% url 'gallary' %}"><i class="fas fa-award"></i> Gallery</a></li>
+                                <li><a class="dropdown-item" href="{% url 'about' %}"><i
+                                            class="fas fa-bullseye"></i>About us</a></li>
+                                <li><a class="dropdown-item" href="{% url 'department' %}"><i
+                                            class="fas fa-hand-holding-heart"></i> Department</a></li>
+                                <li><a class="dropdown-item" href="{% url 'events-news' %}"><i
+                                            class="fas fa-calendar-alt"></i> Event & News</a></li>
+                                <li><a class="dropdown-item" href="{% url 'gallary' %}"><i class="fas fa-award"></i>
+                                        Gallery</a></li>
                             </ul>
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle"  id="dropdown05"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog <i
-                                    class="icofont-thin-down"></i></a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdown05"  class="fw-bold">
-                                <li><a class="dropdown-item" href="{%}" ><i class="fas fa-newspaper" class="fw-bold"></i>Medical News</a></li>
-                                
+                            <a class="nav-link dropdown-toggle" id="dropdown05" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Blog <i class="icofont-thin-down"></i></a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown05" class="fw-bold">
+                                <li><a class="dropdown-item" href="{%}"><i class="fas fa-newspaper"
+                                            class="fw-bold"></i>Medical News</a></li>
+
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'apply' %}">apply</a></li>
@@ -181,10 +185,15 @@
                                 <li><a class="dropdown-item" href="{% url 'doctor_page' %}">Doctors Dashboard</a></li>
                                 {% else %}
                                 {% endif %}
-                                {% if request.user.role.new_role == "HR" %} 
+                                {% if request.user.role.new_role == "HR" %}
                                 <li><a class="dropdown-item" href="{% url 'hr_dashboard' %}">HR's Dashboard</a></li>
                                 {% else %}
                                 {% endif %}
+                                {% if request.user.is_superuser%}
+                                <li><a class="dropdown-item" href="{% url 'hr_dashboard' %}">HR's Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{% url 'doctor_page' %}">Doctors Dashboard</a></li>
+                                {% else %}
+                                {%endif%}
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -228,7 +237,7 @@
     {% block content %}
     <!-- Page-specific content will go here -->
     {% endblock %}
- 
+
     <footer class="footer mt-5">
         <div class="footer-container">
 
